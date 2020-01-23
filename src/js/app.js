@@ -9,8 +9,15 @@ const debitButton = $('#debit-button');
 const debitAmount = $('#debit-amount');
 const alertContainer = $('.alert');
 
-let denominations;
-let _amount;
+let denominationsATM;
+let denominationsDebit;
+let amountATM;
+let amountDebit;
+
+function cleanDebit() {
+  debitAmount.value = '';
+  debitAmount.focus();
+}
 
 function disableSetDenominations(val) {
   function setValueAndDisable(element, value) {
@@ -19,10 +26,10 @@ function disableSetDenominations(val) {
   }
 
   if (val) {
-    setValueAndDisable(_2000, denominations._2000);
-    setValueAndDisable(_500, denominations._500);
-    setValueAndDisable(_200, denominations._200);
-    setValueAndDisable(_100, denominations._100);
+    setValueAndDisable(_2000, denominationsATM._2000);
+    setValueAndDisable(_500, denominationsATM._500);
+    setValueAndDisable(_200, denominationsATM._200);
+    setValueAndDisable(_100, denominationsATM._100);
   } else {
     _2000.disabled = false;
     _500.disabled = false;
@@ -36,13 +43,24 @@ function disableDebit(val) {
   debitButton.disabled = val;
 }
 
+function getATMamount() {
+  return (
+    denominationsATM._2000 * 2000 +
+    denominationsATM._500 * 500 +
+    denominationsATM._200 * 200 +
+    denominationsATM._100 * 100
+  );
+}
+
 function setDenominations() {
-  denominations = {
+  denominationsATM = {
     _2000: +_2000.value,
     _500: +_500.value,
     _200: +_200.value,
     _100: +_100.value
   };
+
+  amountATM = getATMamount();
 
   this.textContent = 'Reset';
   this.onclick = resetDenominations;
@@ -61,10 +79,100 @@ function resetDenominations() {
   _2000.focus();
 }
 
+function showAlert(className, message) {
+  const classNames = ['alert-warning', 'alert-info'];
+
+  // Cleaning Alert and Removing Classes
+  while (alertContainer.firstChild) {
+    alertContainer.removeChild(alertContainer.firstChild);
+  }
+
+  classNames.forEach(cn => {
+    if (alertContainer.classList.contains(cn)) {
+      alertContainer.classList.remove(cn);
+    }
+  });
+
+  alertContainer.classList.add(className);
+  alertContainer.innerText = message;
+}
+
+function showDebit() {
+  const tempObj = { _2000: 2000, _500: 500, _200: 200, _100: 100 };
+  const table = document.createElement('table');
+  table.className = 'table table-borderless table-sm mt-3';
+
+  for (const key of Object.keys(denominationsDebit)) {
+    table.innerHTML += `
+      <tr>
+        <td>${tempObj[key]}</td>
+        <td>&times;</td>
+        <td>${denominationsDebit[key]}</td>
+        <td>=</td>
+        <td>${tempObj[key] * denominationsDebit[key]}</td>
+      </tr>
+    `;
+  }
+
+  table.innerHTML += `
+    <tr>
+      <td colspan="4">Total:</td>
+      <td>${amountDebit}</td>
+    </tr>
+  `;
+
+  showAlert('alert-info', 'Transaction Successful!\nDenominations:');
+  alertContainer.appendChild(table);
+}
+
+function proceedDebit(amount) {
+  // showAlert('alert-info', 'Transaction Successful!');
+  denominationsDebit = {
+    _2000: 10,
+    _500: 10,
+    _200: 10,
+    _100: 5
+  };
+  showDebit();
+}
+
 function debit() {
-  _amount = +debitAmount.value;
+  amountDebit = +debitAmount.value;
+  cleanDebit();
+
+  if (amountDebit < 100) {
+    showAlert('alert-warning', 'Minimum debit is ₹100');
+    return;
+  }
+
+  if (amountDebit % 100 !== 0) {
+    showAlert(
+      'alert-warning',
+      'Please enter the amount in denominations of 100'
+    );
+    return;
+  }
+
+  if (amountDebit > amountATM) {
+    showAlert(
+      'alert-warning',
+      'Amount unavailable \n Please enter a lower amount'
+    );
+    return;
+  } else {
+    proceedDebit(amountDebit);
+  }
 }
 
 // Clicking Set Denominations Button
 setButton.onclick = setDenominations;
 debitButton.onclick = debit;
+
+// Handling ENTER Press
+_100.onkeydown = function(event) {
+  if (event.keyCode === 13) setButton.click();
+};
+
+debitAmount.onkeydown = function(event) {
+  if (event.keyCode === 13) debitButton.click();
+};
