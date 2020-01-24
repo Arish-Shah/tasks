@@ -3,16 +3,19 @@ const _2000 = $('#_2000');
 const _500 = $('#_500');
 const _200 = $('#_200');
 const _100 = $('#_100');
+const notes = { _2000: 2000, _500: 500, _200: 200, _100: 100 };
 
 const setButton = $('#set-button');
 const debitButton = $('#debit-button');
 const debitAmount = $('#debit-amount');
 const alertContainer = $('.alert');
+const atmTotal = $('#atm-total');
 
 let denominationsATM;
-let denominationsDebit;
+let denominationsDebit = { _2000: 0, _500: 0, _200: 0, _100: 0 };
 let amountATM;
 let amountDebit;
+let previousAmount;
 
 function cleanDebit() {
   debitAmount.value = '';
@@ -24,6 +27,10 @@ function disableSetDenominations(val) {
     element.value = value;
     element.disabled = true;
   }
+
+  // Sets the Total Amount
+  amountATM = getATMamount();
+  atmTotal.textContent = amountATM;
 
   if (val) {
     setValueAndDisable(_2000, denominationsATM._2000);
@@ -59,8 +66,6 @@ function setDenominations() {
     _200: +_200.value,
     _100: +_100.value
   };
-
-  amountATM = getATMamount();
 
   this.textContent = 'Reset';
   this.onclick = resetDenominations;
@@ -98,18 +103,17 @@ function showAlert(className, message) {
 }
 
 function showDebit() {
-  const tempObj = { _2000: 2000, _500: 500, _200: 200, _100: 100 };
   const table = document.createElement('table');
-  table.className = 'table table-borderless table-sm mt-3';
+  table.className = 'table table-sm mt-3';
 
   for (const key of Object.keys(denominationsDebit)) {
     table.innerHTML += `
       <tr>
-        <td>${tempObj[key]}</td>
+        <td>${notes[key]}</td>
         <td>&times;</td>
         <td>${denominationsDebit[key]}</td>
         <td>=</td>
-        <td>${tempObj[key] * denominationsDebit[key]}</td>
+        <td>${notes[key] * denominationsDebit[key]}</td>
       </tr>
     `;
   }
@@ -123,20 +127,60 @@ function showDebit() {
 
   showAlert('alert-info', 'Transaction Successful!\nDenominations:');
   alertContainer.appendChild(table);
+
+  Object.keys(denominationsDebit).forEach(key => {
+    denominationsDebit[key] = 0;
+  });
 }
 
-function proceedDebit(amount) {
-  // showAlert('alert-info', 'Transaction Successful!');
-  denominationsDebit = {
-    _2000: 10,
-    _500: 10,
-    _200: 10,
-    _100: 5
-  };
-  showDebit();
+function withdraw(amount, key) {
+  denominationsATM[key]--;
+  denominationsDebit[key]++;
+  return amount - notes[key];
 }
 
-function debit() {
+function debit(amount) {
+  if (!amount) {
+    showDebit(); // Shows Denominations Information
+    disableSetDenominations(true);
+    return;
+  } else {
+    previousAmount = amount;
+
+    if (amount >= 2000) {
+      if (denominationsATM._2000) {
+        amount = withdraw(amount, '_2000');
+      }
+    }
+
+    if (amount >= 500 && amount < 2000) {
+      if (denominationsATM._500) {
+        amount = withdraw(amount, '_500');
+      }
+    }
+
+    if (amount >= 200 && amount < 500) {
+      if (denominationsATM._200) {
+        amount = withdraw(amount, '_200');
+      }
+    }
+
+    if (amount >= 100 && amount < 200) {
+      if (denominationsATM._100) {
+        amount = withdraw(amount, '_100');
+      }
+    }
+
+    if (previousAmount === amount) {
+      showAlert('alert-warning', 'Unable to dispatch');
+      return;
+    }
+
+    debit(amount);
+  }
+}
+
+function startDebit() {
   amountDebit = +debitAmount.value;
   cleanDebit();
 
@@ -160,13 +204,13 @@ function debit() {
     );
     return;
   } else {
-    proceedDebit(amountDebit);
+    debit(amountDebit);
   }
 }
 
 // Clicking Set Denominations Button
 setButton.onclick = setDenominations;
-debitButton.onclick = debit;
+debitButton.onclick = startDebit;
 
 // Handling ENTER Press
 _100.onkeydown = function(event) {
