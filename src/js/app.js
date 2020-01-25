@@ -12,10 +12,15 @@ const alertContainer = $('.alert');
 const atmTotal = $('#atm-total');
 
 let denominationsATM;
-let denominationsDebit = { _2000: 0, _500: 0, _200: 0, _100: 0 };
+let tempDenominationsATM; // For keeping values while debitting
+let denominationsDebit;
 let amountATM;
 let amountDebit;
-let previousAmount;
+let previousValue;
+
+function initDenominationsDebit() {
+  denominationsDebit = { _2000: 0, _500: 0, _200: 0, _100: 0 };
+}
 
 function cleanDebit() {
   debitAmount.value = '';
@@ -133,51 +138,75 @@ function showDebit() {
   });
 }
 
-function withdraw(amount, key) {
-  denominationsATM[key]--;
+function withdraw(key, amount) {
+  tempDenominationsATM[key]--;
   denominationsDebit[key]++;
   return amount - notes[key];
 }
 
 function debit(amount) {
   if (!amount) {
-    showDebit(); // Shows Denominations Information
+    showDebit();
+    // Copy the temporary deductions from the main denominations
+    denominationsATM = { ...tempDenominationsATM };
     disableSetDenominations(true);
     return;
-  } else {
-    previousAmount = amount;
-
-    if (amount >= 2000) {
-      if (denominationsATM._2000) {
-        amount = withdraw(amount, '_2000');
-      }
-    }
-
-    if (amount >= 500 && amount < 2000) {
-      if (denominationsATM._500) {
-        amount = withdraw(amount, '_500');
-      }
-    }
-
-    if (amount >= 200 && amount < 500) {
-      if (denominationsATM._200) {
-        amount = withdraw(amount, '_200');
-      }
-    }
-
-    if (amount >= 100 && amount < 200) {
-      if (denominationsATM._100) {
-        amount = withdraw(amount, '_100');
-      }
-    }
-
-    if (previousAmount === amount) {
-      showAlert('alert-warning', 'Unable to dispatch');
-      return;
-    }
-
-    debit(amount);
   }
+
+  let skip500 = false;
+
+  previousValue = amount;
+
+  if (amount >= 2000) {
+    if (tempDenominationsATM._2000 > 1) {
+      amount = withdraw('_2000', amount);
+    } else if (tempDenominationsATM._2000 === 1) {
+      if (
+        tempDenominationsATM._500 < 4 &&
+        tempDenominationsATM._200 < 10 &&
+        tempDenominationsATM._100 < 20
+      ) {
+        amount = withdraw('_2000', amount);
+      }
+    }
+  }
+
+  if (amount % 600 === 0 && tempDenominationsATM._200 > 3) {
+    skip500 = true;
+  }
+
+  if (!skip500) {
+    if (amount >= 500) {
+      if (tempDenominationsATM._500 > 1) {
+        amount = withdraw('_500', amount);
+      } else if (tempDenominationsATM === 1) {
+        if (tempDenominationsATM._200 < 2 && tempDenominationsATM._100 < 5) {
+          amount = withdraw('_500', amount);
+        }
+      }
+    }
+  }
+
+  if (amount >= 200) {
+    if (tempDenominationsATM._200 > 1) {
+      amount = withdraw('_200', amount);
+    } else if (tempDenominationsATM._100 < 2) {
+      amount = withdraw('_200', amount);
+    }
+  }
+
+  if (amount >= 100) {
+    if (tempDenominationsATM._100) {
+      amount = withdraw('_100', amount);
+    }
+  }
+
+  if (previousValue === amount) {
+    showAlert('alert-warning', 'Transaction Failed');
+    return;
+  }
+
+  debit(amount);
 }
 
 function startDebit() {
@@ -198,12 +227,11 @@ function startDebit() {
   }
 
   if (amountDebit > amountATM) {
-    showAlert(
-      'alert-warning',
-      'Amount unavailable \n Please enter a lower amount'
-    );
+    showAlert('alert-warning', 'Amount unavailable');
     return;
   } else {
+    initDenominationsDebit();
+    tempDenominationsATM = { ...denominationsATM };
     debit(amountDebit);
   }
 }
