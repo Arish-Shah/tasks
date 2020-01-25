@@ -1,26 +1,24 @@
-const $ = query => document.querySelector(query);
-const $2000 = $('#_2000');
-const $500 = $('#_500');
-const $200 = $('#_200');
-const $100 = $('#_100');
+const _ = query => document.querySelector(query);
+const $2000 = _('#_2000');
+const $500 = _('#_500');
+const $200 = _('#_200');
+const $100 = _('#_100');
 
-const setButton = $('#set-button');
-const debitButton = $('#debit-button');
-const debitAmountInput = $('#debit-amount');
-const alertContainer = $('.alert');
-const atmTotal = $('#atm-total');
+const setButton = _('#set-button');
+const debitButton = _('#debit-button');
+const debitAmountInput = _('#debit-amount');
+const alertContainer = _('.alert');
+const atmTotal = _('#atm-total');
 
 let atmDenominations;
 let atmTempDenominations; // For keeping values during transaction
-let debitDenominations;
+let debitDenominations = { 2000: 0, 500: 0, 200: 0, 100: 0 };
 let ATMAmount;
 let debitAmount;
 let previousAmount;
 
 function initDebitDenominations() {
-  Object.keys(debitDenominations).forEach(key => {
-    debitDenominations[key] = 0;
-  });
+  debitDenominations = { 2000: 0, 500: 0, 200: 0, 100: 0 };
 }
 
 function cleanDebit() {
@@ -114,11 +112,11 @@ function showDebit() {
   for (const key of Object.keys(debitDenominations)) {
     table.innerHTML += `
       <tr>
-        <td>${notes[key]}</td>
+        <td>${key}</td>
         <td>&times;</td>
         <td>${debitDenominations[key]}</td>
         <td>=</td>
-        <td>${notes[key] * debitDenominations[key]}</td>
+        <td>${key * debitDenominations[key]}</td>
       </tr>
     `;
   }
@@ -141,7 +139,7 @@ function withdraw(key, amount) {
 }
 
 function debit(amount) {
-  if (!amount) {
+  if (amount === 0) {
     showDebit();
     // Copy the temporary deductions from the main denominations
     atmDenominations = { ...atmTempDenominations };
@@ -155,9 +153,6 @@ function debit(amount) {
     showAlert('alert-warning', 'Transaction Failed');
     return;
   }
-
-  console.log(amount);
-  debit(amount);
 }
 
 function startDebit() {
