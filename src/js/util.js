@@ -1,74 +1,49 @@
-export default function $(query) {
-  return document.querySelector(query);
-}
+export function getArrangements(denominations) {
+  function permutations(xs) {
+    let ret = [];
 
-export function create(query) {
-  return document.createElement(query);
-}
+    for (let i = 0; i < xs.length; i = i + 1) {
+      let rest = permutations(xs.slice(0, i).concat(xs.slice(i + 1)));
 
-export const combinations = [
-  [100],
-  [200],
-  [500],
-  [2000],
-  [100, 200],
-  [100, 500],
-  [100, 2000],
-  [200, 100],
-  [200, 500],
-  [200, 2000],
-  [500, 100],
-  [500, 200],
-  [500, 2000],
-  [2000, 100],
-  [2000, 200],
-  [2000, 500],
-  [100, 200, 500],
-  [100, 200, 2000],
-  [100, 500, 200],
-  [100, 500, 2000],
-  [100, 2000, 200],
-  [100, 2000, 500],
-  [200, 100, 500],
-  [200, 100, 2000],
-  [200, 500, 100],
-  [200, 500, 2000],
-  [200, 2000, 100],
-  [200, 2000, 500],
-  [500, 100, 200],
-  [500, 100, 2000],
-  [500, 200, 100],
-  [500, 200, 2000],
-  [500, 2000, 100],
-  [500, 2000, 200],
-  [2000, 100, 200],
-  [2000, 100, 500],
-  [2000, 200, 100],
-  [2000, 200, 500],
-  [2000, 500, 100],
-  [2000, 500, 200],
-  [100, 200, 500, 2000],
-  [100, 200, 2000, 500],
-  [100, 500, 200, 2000],
-  [100, 500, 2000, 200],
-  [100, 2000, 200, 500],
-  [100, 2000, 500, 200],
-  [200, 100, 500, 2000],
-  [200, 100, 2000, 500],
-  [200, 500, 100, 2000],
-  [200, 500, 2000, 100],
-  [200, 2000, 100, 500],
-  [200, 2000, 500, 100],
-  [500, 100, 200, 2000],
-  [500, 100, 2000, 200],
-  [500, 200, 100, 2000],
-  [500, 200, 2000, 100],
-  [500, 2000, 100, 200],
-  [500, 2000, 200, 100],
-  [2000, 100, 200, 500],
-  [2000, 100, 500, 200],
-  [2000, 200, 100, 500],
-  [2000, 200, 500, 100],
-  [2000, 500, 100, 200],
-  [2000, 500, 200, 100]
-];
+      if (!rest.length) {
+        ret.push([xs[i]]);
+      } else {
+        for (let j = 0; j < rest.length; j = j + 1) {
+          ret.push([xs[i]].concat(rest[j]));
+        }
+      }
+    }
+    return ret;
+  }
+
+  function combinations(a) {
+    function comb(n, src, got, all) {
+      if (n == 0) {
+        if (got.length > 0) {
+          all[all.length] = got;
+        }
+        return;
+      }
+      for (let j = 0; j < src.length; j++) {
+        comb(n - 1, src.slice(j + 1), got.concat([src[j]]), all);
+      }
+      return;
+    }
+    let all = [];
+    for (let i = 1; i < a.length; i++) {
+      comb(i, a, [], all);
+    }
+    all.push(a);
+    return all;
+  }
+
+  const result = [];
+
+  combinations(denominations).forEach(c => {
+    permutations(c).forEach(p => {
+      result.push(p);
+    });
+  });
+
+  return result;
+}
