@@ -1,25 +1,19 @@
-const _ = query => document.querySelector(query);
-const $2000 = _('#_2000');
-const $500 = _('#_500');
-const $200 = _('#_200');
-const $100 = _('#_100');
+import { $, combinations } from './util';
 
-const setButton = _('#set-button');
-const debitButton = _('#debit-button');
-const debitAmountInput = _('#debit-amount');
-const alertContainer = _('.alert');
-const atmTotal = _('#atm-total');
+const $2000 = $('#_2000');
+const $500 = $('#_500');
+const $200 = $('#_200');
+const $100 = $('#_100');
 
-let atmDenominations;
-let atmTempDenominations; // For keeping values during transaction
-let debitDenominations = { 2000: 0, 500: 0, 200: 0, 100: 0 };
+const setButton = $('#set-button');
+const debitButton = $('#debit-button');
+const debitAmountInput = $('#debit-amount');
+const alertContainer = $('.alert');
+const atmTotal = $('#atm-total');
+
+let atmNotes;
 let ATMAmount;
 let debitAmount;
-let previousAmount;
-
-function initDebitDenominations() {
-  debitDenominations = { 2000: 0, 500: 0, 200: 0, 100: 0 };
-}
 
 function cleanDebit() {
   debitAmountInput.value = '';
@@ -37,10 +31,10 @@ function disableSetDenominations(val) {
   atmTotal.textContent = ATMAmount;
 
   if (val) {
-    setValueAndDisable($2000, atmDenominations[2000]);
-    setValueAndDisable($500, atmDenominations[500]);
-    setValueAndDisable($200, atmDenominations[200]);
-    setValueAndDisable($100, atmDenominations[100]);
+    setValueAndDisable($2000, atmNotes[2000]);
+    setValueAndDisable($500, atmNotes[500]);
+    setValueAndDisable($200, atmNotes[200]);
+    setValueAndDisable($100, atmNotes[100]);
   } else {
     $2000.disabled = false;
     $500.disabled = false;
@@ -56,14 +50,14 @@ function disableDebit(val) {
 
 function getATMamount() {
   let sum = 0;
-  Object.keys(atmDenominations).forEach(key => {
-    sum = sum + key * atmDenominations[key];
+  Object.keys(atmNotes).forEach(key => {
+    sum = sum + key * atmNotes[key];
   });
   return sum;
 }
 
 function setDenominations() {
-  atmDenominations = {
+  atmNotes = {
     2000: Number($2000.value),
     500: Number($500.value),
     200: Number($200.value),
@@ -105,18 +99,18 @@ function showAlert(className, message) {
   alertContainer.innerText = message;
 }
 
-function showDebit() {
+function showDebit(noteObj) {
   const table = document.createElement('table');
   table.className = 'table table-sm mt-3';
 
-  for (const key of Object.keys(debitDenominations)) {
+  for (const key of Object.keys(noteObj).reverse()) {
     table.innerHTML += `
       <tr>
         <td>${key}</td>
         <td>&times;</td>
-        <td>${debitDenominations[key]}</td>
+        <td>${noteObj[key]}</td>
         <td>=</td>
-        <td>${key * debitDenominations[key]}</td>
+        <td>${key * noteObj[key]}</td>
       </tr>
     `;
   }
@@ -132,26 +126,59 @@ function showDebit() {
   alertContainer.appendChild(table);
 }
 
-function withdraw(key, amount) {
-  atmTempDenominations[key]--;
-  debitDenominations[key]++;
-  return amount - notes[key];
-}
-
 function debit(amount) {
-  if (amount === 0) {
-    showDebit();
-    // Copy the temporary deductions from the main denominations
-    atmDenominations = { ...atmTempDenominations };
-    disableSetDenominations(true);
-    return;
+  const results = [];
+
+  for (let i = 0; i < combinations.length; i++) {
+    const prevAmount = amount; // Keep Backup of Amount
+    const tempNotes = { ...atmNotes }; // Get notes
+    const resultNotes = {}; // For storing the resultant notes
+    const notes = combinations[i]; // Getting ith combination of notes
+
+    for (const note of notes) {
+      while (amount >= note && tempNotes[note] > 0) {
+        amount = amount - note;
+        tempNotes[note]--;
+        resultNotes[note] = resultNotes[note] || 0;
+        resultNotes[note]++;
+      }
+    }
+
+    // Checking if the object is unique
+    if (amount === 0) {
+      const index = results.findIndex(r => {
+        return (
+          resultNotes[2000] === r[2000] &&
+          resultNotes[500] === r[500] &&
+          resultNotes[200] === r[200] &&
+          resultNotes[100] === r[100]
+        );
+      });
+
+      if (index <= -1) {
+        results.push(resultNotes);
+      }
+    }
+
+    // Resetting Amount for next iteration
+    amount = prevAmount;
   }
 
-  previousAmount = amount;
-
-  if (previousAmount === amount) {
+  if (!results.length) {
     showAlert('alert-warning', 'Transaction Failed');
-    return;
+    return -1;
+  } else if (results.length === 1) {
+    return results[0];
+  } else {
+    // Getting the result with max types of notes - NOT THE BEST APPROACH
+    let returnNotes = results[0];
+
+    results.forEach(r => {
+      if (Object.keys(r).length >= Object.keys(returnNotes).length) {
+      }
+    });
+
+    return returnNotes;
   }
 }
 
@@ -176,9 +203,18 @@ function startDebit() {
     showAlert('alert-warning', 'Amount unavailable');
     return;
   } else {
-    initDebitDenominations();
-    atmTempDenominations = { ...atmDenominations };
-    debit(debitAmount);
+    const debitNotes = debit(debitAmount);
+
+    if (debitNotes !== -1) {
+      // Subtract the returned Result from ATM Denominations
+      Object.keys(atmNotes).forEach(key => {
+        const sub = debitNotes[key] || 0;
+        atmNotes[key] -= sub;
+      });
+
+      showDebit(debitNotes);
+      disableSetDenominations(true);
+    }
   }
 }
 
