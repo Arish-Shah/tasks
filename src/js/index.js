@@ -1,17 +1,21 @@
-import { create } from './ui';
+import { create, subtract } from './ui';
 import {
   setDenominations,
   disable,
   enable,
   getATMAmount,
   showAlert,
-  debit
+  debit,
+  showDebit
 } from './app';
 
 const $denominations = [2000, 500, 200, 100];
 
 const $table = document.querySelector('.table');
-const [$inputs, $balance, $setButton] = create($table, $denominations);
+const [$inputArray, $inputObject, $balance, $setButton] = create(
+  $table,
+  $denominations
+);
 let $set = false;
 let $atmNotes;
 
@@ -23,8 +27,8 @@ const $alert = document.querySelector('#alert');
 
 $setButton.onclick = function() {
   if (!$set) {
-    $atmNotes = setDenominations($inputs, $denominations);
-    disable($inputs);
+    $atmNotes = setDenominations($inputObject);
+    disable($inputArray);
     enable([$debitAmountInput, $debitButton]);
     $balance.textContent = getATMAmount($atmNotes);
     $debitAmountInput.focus();
@@ -32,8 +36,8 @@ $setButton.onclick = function() {
     $set = true;
   } else {
     disable([$debitAmountInput, $debitButton]);
-    enable($inputs);
-    $inputs[0].focus();
+    enable($inputArray);
+    $inputArray[0].focus();
     this.textContent = 'Set Denominations';
     $set = false;
   }
@@ -63,10 +67,19 @@ $debitButton.onclick = function() {
   }
 
   $debitNotes = debit($denominations, $atmNotes, debitAmount);
+
+  if ($debitNotes === -1) {
+    showAlert($alert, 'alert-warning', 'Transaction Failed');
+    return;
+  }
+
+  subtract($atmNotes, $debitNotes, $inputObject);
+  $atmNotes = setDenominations($inputObject);
+  showDebit($alert, $debitNotes, debitAmount);
 };
 
 // Handling ENTER Press on Inputs
-$inputs[$inputs.length - 1].onkeydown = function(event) {
+$inputArray[$inputArray.length - 1].onkeydown = function(event) {
   if (event.keyCode === 13) $setButton.click();
 };
 
@@ -74,4 +87,4 @@ $debitAmountInput.onkeydown = function(event) {
   if (event.keyCode === 13) $debitButton.click();
 };
 
-$inputs[0].focus();
+$inputArray[0].focus();

@@ -1,5 +1,6 @@
 export function create(table, denominations) {
-  let inputs = [];
+  let inputArray = [];
+  let inputObject = {};
   let balance;
   let button;
   let tr;
@@ -20,7 +21,8 @@ export function create(table, denominations) {
       </td>
     `;
     table.appendChild(tr);
-    inputs.push(table.querySelector(`#_${denomination}`));
+    inputArray.push(table.querySelector(`#_${denomination}`));
+    inputObject[denomination] = table.querySelector(`#_${denomination}`);
   });
 
   // Adding Balance
@@ -44,5 +46,13 @@ export function create(table, denominations) {
   table.appendChild(tr);
   button = tr.querySelector('#set-button');
 
-  return [inputs, balance, button];
+  return [inputArray, inputObject, balance, button];
+}
+
+export function subtract(atmNotes, debitNotes, inputObject) {
+  Object.keys(atmNotes).forEach(note => {
+    const subValue = debitNotes[note] || 0;
+    atmNotes[note] -= subValue;
+    inputObject[note].value = atmNotes[note];
+  });
 }
