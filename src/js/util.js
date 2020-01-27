@@ -1,5 +1,9 @@
-export function $(query) {
+export default function $(query) {
   return document.querySelector(query);
+}
+
+export function create(query) {
+  return document.createElement(query);
 }
 
 export const combinations = [

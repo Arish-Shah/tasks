@@ -10,11 +10,10 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-    <script src="./js/app.js" defer></script>
+    <script src="./js/index.js" defer></script>
     <title>ATM</title>
   </head>
   <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-dark bg-primary">
       <h1 class="navbar-brand mx-auto">Automated Teller Machine</h1>
     </nav>
@@ -24,73 +23,14 @@
         <div class="col-xl-4 col-lg-5 col-md-6 mr-lg-4">
           <h5>ATM Note Denominations:</h5>
           <table class="table">
-            <tr>
-              <td><h5>2000</h5></td>
-              <td><h5>&times;</h5></td>
-              <td>
-                <input
-                  type="number"
-                  placeholder="0"
-                  id="_2000"
-                  class="form-control"
-                  autofocus
-                />
-              </td>
-            </tr>
-            <tr>
-              <td><h5>500</h5></td>
-              <td><h5>&times;</h5></td>
-              <td>
-                <input
-                  type="number"
-                  placeholder="0"
-                  id="_500"
-                  class="form-control"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td><h5>200</h5></td>
-              <td><h5>&times;</h5></td>
-              <td>
-                <input
-                  type="number"
-                  placeholder="0"
-                  id="_200"
-                  class="form-control"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td><h5>100</h5></td>
-              <td><h5>&times;</h5></td>
-              <td>
-                <input
-                  type="number"
-                  placeholder="0"
-                  id="_100"
-                  class="form-control"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">Balance:</td>
-              <td id="atm-total">0</td>
-            </tr>
-            <tr>
-              <td colspan="3">
-                <button class="btn btn-primary" id="set-button">
-                  Set Denominations
-                </button>
-              </td>
-            </tr>
+            <tbody></tbody>
           </table>
         </div>
         <div class="col-xl-4 col-lg-5 col-md-6">
           <h5>Debit:</h5>
           <table class="table">
             <tr>
-              <td><h5>₹</h5></td>
+              <td class="align-bottom"><h5>₹</h5></td>
               <td>
                 <input
                   type="number"
@@ -115,12 +55,5 @@
         </div>
       </div>
     </div>
-
-    <script>
-      const tds = document.querySelectorAll('td');
-      tds.forEach(td => {
-        td.classList.add('align-bottom');
-      });
-    </script>
   </body>
 </html>
