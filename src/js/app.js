@@ -59,13 +59,30 @@ export function debit(denominations, atmNotes, debitAmount) {
     const resultNotes = {}; // For storing the resultant notes
     const notes = arrangements[i]; // Getting ith combination of notes
 
-    for (const note of notes) {
-      while (amount >= note && tempNotes[note] > 0) {
-        amount = amount - note;
-        tempNotes[note]--;
-        resultNotes[note] = resultNotes[note] || 0;
-        resultNotes[note]++;
+    // Deducts all possiblities
+    // for (const note of notes) {
+    //   while (amount >= note && tempNotes[note] > 0) {
+    //     amount = amount - note;
+    //     tempNotes[note]--;
+    //     resultNotes[note] = resultNotes[note] || 0;
+    //     resultNotes[note]++;
+    //   }
+    // }
+
+    // Deducts once then restarts
+    while (amount > 0) {
+      const prevAmount = amount;
+
+      for (const note of notes) {
+        if (tempNotes[note] > 0 && amount >= note) {
+          amount = amount - note;
+          tempNotes[note]--;
+          resultNotes[note] = resultNotes[note] || 0;
+          resultNotes[note]++;
+        }
       }
+
+      if (prevAmount === amount) break;
     }
 
     // Checking if the object is unique
@@ -89,6 +106,8 @@ export function debit(denominations, atmNotes, debitAmount) {
         returnNotes = r;
       }
     });
+
+    console.log(results);
 
     return returnNotes;
   }
