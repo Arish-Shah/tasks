@@ -1,22 +1,22 @@
 export function getArrangements(denominations) {
-  function permutations(xs) {
+  function permutations(arr) {
     let ret = [];
 
-    for (let i = 0; i < xs.length; i = i + 1) {
-      let rest = permutations(xs.slice(0, i).concat(xs.slice(i + 1)));
+    for (let i = 0; i < arr.length; i = i + 1) {
+      let rest = permutations(arr.slice(0, i).concat(arr.slice(i + 1)));
 
       if (!rest.length) {
-        ret.push([xs[i]]);
+        ret.push([arr[i]]);
       } else {
         for (let j = 0; j < rest.length; j = j + 1) {
-          ret.push([xs[i]].concat(rest[j]));
+          ret.push([arr[i]].concat(rest[j]));
         }
       }
     }
     return ret;
   }
 
-  function combinations(a) {
+  function combinations(arr) {
     function comb(n, src, got, all) {
       if (n == 0) {
         if (got.length > 0) {
@@ -30,10 +30,10 @@ export function getArrangements(denominations) {
       return;
     }
     let all = [];
-    for (let i = 1; i < a.length; i++) {
-      comb(i, a, [], all);
+    for (let i = 1; i < arr.length; i++) {
+      comb(i, arr, [], all);
     }
-    all.push(a);
+    all.push(arr);
     return all;
   }
 

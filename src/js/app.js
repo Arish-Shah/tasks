@@ -81,7 +81,7 @@ export function debit(denominations, atmNotes, debitAmount) {
   } else if (results.length === 1) {
     return results[0];
   } else {
-    // Getting the result with max types of notes - NOT THE BEST APPROACH
+    // Result with max types of notes - NOT THE BEST APPROACH
     let returnNotes = results[0];
 
     results.forEach(r => {

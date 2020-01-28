@@ -9,7 +9,7 @@ import {
   showDebit
 } from './app';
 
-const $denominations = [2000, 1000, 500, 200, 100, 50];
+const $denominations = [2000, 500, 200, 100];
 
 const $table = document.querySelector('.table');
 const [$inputArray, $inputObject, $balance, $setButton] = create(
