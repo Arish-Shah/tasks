@@ -38,6 +38,18 @@ export function showAlert(element, className, message) {
 }
 
 export function debit(denominations, atmNotes, debitAmount) {
+  // Checks if the Array contains that Object
+  function notHas(arr, obj) {
+    let flag = 1;
+    arr.forEach(arrObj => {
+      if (JSON.stringify(arrObj) === JSON.stringify(obj)) {
+        flag = 0;
+      }
+    });
+
+    return flag ? true : false;
+  }
+
   const arrangements = getArrangements(denominations);
   const results = [];
 
@@ -58,7 +70,9 @@ export function debit(denominations, atmNotes, debitAmount) {
 
     // Checking if the object is unique
     if (amount === 0) {
-      results.push(resultNotes);
+      if (notHas(results, resultNotes)) {
+        results.push(resultNotes);
+      }
     }
   }
 

@@ -9,7 +9,7 @@ import {
   showDebit
 } from './app';
 
-const $denominations = [2000, 500, 200, 100];
+const $denominations = [2000, 1000, 500, 200, 100, 50];
 
 const $table = document.querySelector('.table');
 const [$inputArray, $inputObject, $balance, $setButton] = create(
@@ -75,6 +75,7 @@ $debitButton.onclick = function() {
 
   subtract($atmNotes, $debitNotes, $inputObject);
   $atmNotes = setDenominations($inputObject);
+  $balance.textContent = getATMAmount($atmNotes);
   showDebit($alert, $debitNotes, debitAmount);
 };
 
