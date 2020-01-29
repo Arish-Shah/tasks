@@ -102,12 +102,10 @@ export function debit(denominations, atmNotes, debitAmount) {
     let returnNotes = results[0];
 
     results.forEach(r => {
-      if (Object.keys(r).length >= Object.keys(returnNotes).length) {
+      if (Object.keys(r).length > Object.keys(returnNotes).length) {
         returnNotes = r;
       }
     });
-
-    console.log(results);
 
     return returnNotes;
   }
