@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
 
-import data from '../assets/menu3.json';
+import data from '../data/menu3.json';
 import { createSideBar, createSideList } from './ui';
 
 const sideBar = document.querySelector('#side-bar');

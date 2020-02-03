@@ -65,7 +65,7 @@
                                         "name": "Process",
                                         "menuId": "OS_PROCESS",
                                         "url": "main.process",
-                                        "icon": "assets/img/process.png",
+                                        "icon": "assets/img/process.png\n",
                                         "groupId": 1,
                                         "applicationId": "OS",
                                         "moduleId": 1,
