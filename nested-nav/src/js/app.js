@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
 
-import { data } from './menu';
+import data from './menu.json';
 import { createSideBar, createSideList } from './ui';
 
 const sideBar = document.querySelector('#side-bar');
@@ -33,12 +33,10 @@ sidebarIcons.forEach(icon => {
 function addOpenListener(anchorArr) {
   anchorArr.forEach(a => {
     a.addEventListener('click', function() {
-      const id = this.getAttribute('data-target');
-      const insideItems = document.querySelector(id);
+      const insideItems = this.nextElementSibling;
 
       if (insideItems.classList.contains('show')) {
         insideItems.classList.remove('show');
-        const text = this.textContent;
         const svg = this.querySelector('svg');
         svg.classList.remove('fa-chevron-down');
         svg.classList.add('fa-chevron-right');

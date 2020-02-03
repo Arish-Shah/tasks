@@ -1,3 +1,5 @@
+import { icon } from './icon';
+
 export function createSideBar(container, items) {
   const ul = document.createElement('ul');
   ul.className = 'nav flex-column';
@@ -9,7 +11,7 @@ export function createSideBar(container, items) {
 
     li.innerHTML = `
       <a class="nav-link text-center text-muted mb-3" href="#!">
-        <span class="fa ${item.icon}"></span>
+        <span class="fa ${icon[item.icon]}"></span>
       </a>
     `;
 
@@ -56,7 +58,7 @@ function createSideListItems(subModules, arr) {
     let iconFlag = false;
     if (subModule.icon.trim() !== '') {
       a.innerHTML = `
-        <i class="fa ${subModule.icon} mr-3"></i>${subModule.name}
+        <i class="fa ${icon[subModule.icon]} mr-3"></i>${subModule.name}
       `;
       iconFlag = true;
     }
