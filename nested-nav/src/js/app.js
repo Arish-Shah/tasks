@@ -39,15 +39,14 @@ function addOpenListener(anchorArr) {
       if (insideItems.classList.contains('show')) {
         insideItems.classList.remove('show');
         const text = this.textContent;
-        this.innerHTML = `
-          <i class="fa fa-chevron-right mr-3"></i>${text}
-        `;
+        const svg = this.querySelector('svg');
+        svg.classList.remove('fa-chevron-down');
+        svg.classList.add('fa-chevron-right');
       } else {
         insideItems.classList.add('show');
-        const text = this.textContent;
-        this.innerHTML = `
-          <i class="fa fa-chevron-down mr-3"></i>${text}
-        `;
+        const svg = this.querySelector('svg');
+        svg.classList.remove('fa-chevron-right');
+        svg.classList.add('fa-chevron-down');
       }
     });
   });
