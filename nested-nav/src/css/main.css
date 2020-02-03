@@ -12,10 +12,6 @@
   font-size: 1.75rem;
 }
 
-#side-bar ul li:last-of-type {
-  margin-top: 20rem;
-}
-
 /* The loaded List */
 #side-list {
   top: 0;

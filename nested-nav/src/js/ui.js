@@ -65,8 +65,6 @@ function createSideListItems(subModules, arr) {
 
     // If children exists
     if (subModule.subModules && subModule.subModules.length) {
-      a.setAttribute('data-target', `#${subModule.menuId}`);
-
       if (!iconFlag) {
         a.innerHTML = `
           <i class="fa fa-chevron-right mr-3"></i>${subModule.name}
@@ -82,8 +80,6 @@ function createSideListItems(subModules, arr) {
       li.appendChild(a);
       li.appendChild(div);
     } else if (subModule.subModulesApps && subModule.subModulesApps.length) {
-      a.setAttribute('data-target', `#${subModule.menuId}`);
-
       if (!iconFlag) {
         a.innerHTML = `
           <i class="fa fa-chevron-right mr-3"></i>${subModule.name}
