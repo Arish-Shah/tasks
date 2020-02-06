@@ -6,10 +6,10 @@ function App() {
   const disabledAdd = useSelector(state => state.disabledAdd);
   const options = [
     { label: 'A thing', value: 'a_thing' },
-    { label: 'A second thing', value: 'a_thing' },
-    { label: 'A third thing', value: 'a_thing' },
-    { label: 'A fourth thing', value: 'a_thing' },
-    { label: 'A fifth thing', value: 'a_thing' }
+    { label: 'A second thing', value: 'b_thing' },
+    { label: 'A third thing', value: 'c_thing' },
+    { label: 'A fourth thing', value: 'd_thing' },
+    { label: 'A fifth thing', value: 'e_thing' }
   ];
 
   const handleChange = e => {
