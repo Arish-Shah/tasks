@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App.jsx';
-import StoreProvider from './store/StoreProvider.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
+import App from './App.jsx';
 
-ReactDOM.render(
-  <StoreProvider>
-    <App />
-  </StoreProvider>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));
+
+if (module.hot) {
+  module.hot.accept();
+}

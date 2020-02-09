@@ -1,62 +1,55 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-function MultiSelect({ options, disabled, onChange, placeholder }) {
+function MultiSelect({ options, placeholder, value, onChange, isDisabled }) {
+  const [showClass, setShowClass] = useState('');
   const [selected, setSelected] = useState([]);
-  const [show, setShow] = useState('');
   const containerRef = useRef();
 
   useEffect(() => {
-    document.addEventListener('click', handleWindowClick);
-    return () => {
-      document.removeEventListener('click', handleWindowClick);
-    };
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => document.removeEventListener('mousedown', handleDocumentClick);
   }, []);
 
-  const handleWindowClick = e => {
-    if (!containerRef.current.contains(e.target)) {
-      setShow('');
-    }
+  useEffect(() => {
+    setSelected(value);
+  }, [value]);
+
+  const handleShow = () => setShowClass(showClass === '' ? 'show' : '');
+
+  const handleDocumentClick = e => {
+    if (!containerRef.current.contains(e.target)) setShowClass('');
   };
 
-  const handleClick = () => {
-    setShow(show === '' ? 'show' : '');
-  };
-
-  const handleOption = (index, i) => {
+  const handleOptionClick = (option, index) => {
     const updatedSelected = [...selected];
-
-    i === -1
-      ? updatedSelected.push(options[index])
-      : updatedSelected.splice(i, 1);
+    index >= 0
+      ? updatedSelected.splice(index, 1)
+      : updatedSelected.push(option);
 
     setSelected(updatedSelected);
-    onChange(updatedSelected); // Passing Changed Value back
+    onChange(updatedSelected);
   };
 
-  const buttonText =
-    selected.length === 0
-      ? placeholder
-      : `${selected.length} ${placeholder}(s) selected`;
-
   return (
-    <div className={`dropdown ${show}`} ref={containerRef}>
+    <div className={`dropdown ${showClass}`} ref={containerRef}>
       <button
-        disabled={disabled}
-        className="btn btn-light dropdown-toggle"
-        onMouseDown={handleClick}
+        onMouseDown={handleShow}
+        className="btn btn-white border dropdown-toggle"
+        disabled={isDisabled}
       >
-        {buttonText}
+        {`${selected.length} ${placeholder}(s) selected`}
       </button>
-      <div className={`dropdown-menu ${show}`}>
-        {options.map((option, index) => {
-          const i = selected.findIndex(sel => sel.value === option.value);
-          let classNames = i >= 0 ? 'dropdown-item active' : 'dropdown-item';
+      <div className={`dropdown-menu ${showClass} pre-scrollable`}>
+        {options.map((option, i) => {
+          const index = selected.findIndex(item => item.value === option.value);
+          const className =
+            index >= 0 ? 'dropdown-item active' : 'dropdown-item';
 
           return (
             <button
-              className={classNames}
-              key={option.value}
-              onClick={() => handleOption(index, i)}
+              key={i}
+              onClick={() => handleOptionClick(option, index)}
+              className={className}
             >
               {option.label}
             </button>
@@ -68,18 +61,3 @@ function MultiSelect({ options, disabled, onChange, placeholder }) {
 }
 
 export default MultiSelect;
-
-// const options = [
-//   { label: 'A thing', value: 'a_thing' },
-//   { label: 'A second thing', value: 'b_thing' },
-//   { label: 'A third thing', value: 'c_thing' },
-//   { label: 'A fourth thing', value: 'd_thing' },
-//   { label: 'A fifth thing', value: 'e_thing' }
-// ];
-
-// <MultiSelect
-//             placeholder="Role"
-//             options={options}
-//             onChange={handleChange}
-//             disabled={false}
-//           />

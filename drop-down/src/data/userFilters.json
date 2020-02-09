@@ -1,322 +1,322 @@
 {
-  "Application": [
-    {
-      "App_Id": "AGG",
-      "App_Name": "Aggregates"
-    },
-    {
-      "App_Id": "CAL",
-      "App_Name": "Calendar"
-    },
-    {
-      "App_Id": "CTAX",
-      "App_Name": "Cash Tax"
-    },
-    {
-      "App_Id": "CMN",
-      "App_Name": "Common Table"
-    },
-    {
-      "App_Id": "DIGI",
-      "App_Name": "Digitax"
-    },
-    {
-      "App_Id": "DTAX",
-      "App_Name": "Discrete Tax Tracking"
-    },
-    {
-      "App_Id": "DTXX",
-      "App_Name": "DTXX"
-    },
-    {
-      "App_Id": "SCHM",
-      "App_Name": "International Sch M "
-    },
-    {
-      "App_Id": "ITRA",
-      "App_Name": "ITRA"
-    },
-    {
-      "App_Id": "JEP",
-      "App_Name": "Journal Entry"
-    },
-    {
-      "App_Id": "NAGL",
-      "App_Name": "NAGL"
-    },
-    {
-      "App_Id": "OS",
-      "App_Name": "OS Feed"
-    },
-    {
-      "App_Id": "PRJ",
-      "App_Name": "Projects"
-    },
-    {
-      "App_Id": "REC",
-      "App_Name": "Recharges"
-    },
-    {
-      "App_Id": "RPT",
-      "App_Name": "Reports"
-    },
-    {
-      "App_Id": "ROY",
-      "App_Name": "Royalty"
-    },
-    {
-      "App_Id": "SUB F",
-      "App_Name": "Subpart F"
-    },
-    {
-      "App_Id": "ENP",
-      "App_Name": "XIEBV E & P"
-    }
-  ],
-  "Role": [
-    {
-      "Role_Id": "ADMIN",
-      "Role_Name": "Admin"
-    },
-    {
-      "Role_Id": "MNGER",
-      "Role_Name": "Manager"
-    },
-    {
-      "Role_Id": "READO",
-      "Role_Name": "Read-only"
-    },
-    {
-      "Role_Id": "READW",
-      "Role_Name": "Read-Write"
-    }
-  ],
-  "Group": [
-    {
-      "Group_Id": "6465",
-      "Group_Name": "Smart Data"
-    },
-    {
-      "Group_Id": "GIS",
-      "Group_Name": "GIS"
-    },
-    {
-      "Group_Id": "LDLP",
-      "Group_Name": "Laternal Data, LP"
-    },
-    {
-      "Group_Id": "NA",
-      "Group_Name": "Not Assigned"
-    },
-    {
-      "Group_Id": "OBPS",
-      "Group_Name": "OBPS"
-    },
-    {
-      "Group_Id": "PARC",
-      "Group_Name": "PARC"
-    },
-    {
-      "Group_Id": "XBS",
-      "Group_Name": "XBS"
-    },
-    {
-      "Group_Id": "XC",
-      "Group_Name": "XC"
-    },
-    {
-      "Group_Id": "XFS",
-      "Group_Name": "XFS"
-    },
-    {
-      "Group_Id": "XIJM",
-      "Group_Name": "XIJM"
-    },
-    {
-      "Group_Id": "XMPie",
-      "Group_Name": "XMPie"
-    },
-    {
-      "Group_Id": "XMS",
-      "Group_Name": "XMS"
-    },
-    {
-      "Group_Id": "XOI",
-      "Group_Name": "XOI"
-    },
-    {
-      "Group_Id": "XSO",
-      "Group_Name": "Xerox Services Operations"
-    }
-  ],
-  "Entity": [
-    {
-      "Group_Id": "LDLP",
-      "Group_Name": "Laternal Data, LP",
-      "Entity_Id": "LD11879",
-      "Entity_Name": "ACS BPS, Ltd - UAE Branch"
-    },
-    {
-      "Group_Id": "XBS",
-      "Group_Name": "XBS",
-      "Entity_Id": "LD11880",
-      "Entity_Name": "ACS BPS, Ltd Argentina Branch"
-    },
-    {
-      "Group_Id": "PARC",
-      "Group_Name": "PARC",
-      "Entity_Id": "LD12094",
-      "Entity_Name": "Wireless Data Services Limited Dubai Branch"
-    },
-    {
-      "Group_Id": "PARC",
-      "Group_Name": "PARC",
-      "Entity_Id": "LL10145",
-      "Entity_Name": "Xerox Canada Inc."
-    },
-    {
-      "Group_Id": "XOI",
-      "Group_Name": "XOI",
-      "Entity_Id": "LL10152",
-      "Entity_Name": "Xerox (Barbados) Leasing SRL"
-    },
-    {
-      "Group_Id": "XIJM",
-      "Group_Name": "XIJM",
-      "Entity_Id": "LL10166",
-      "Entity_Name": "Ionographic Operations Partnership"
-    },
-    {
-      "Group_Id": "OBPS",
-      "Group_Name": "OBPS",
-      "Entity_Id": "LL10313",
-      "Entity_Name": "Xerox AG"
-    },
-    {
-      "Group_Id": "XMPie",
-      "Group_Name": "XMPie",
-      "Entity_Id": "LL10429",
-      "Entity_Name": "Xerox Comercio e Industria LTDA"
-    },
-    {
-      "Group_Id": "OBPS",
-      "Group_Name": "OBPS",
-      "Entity_Id": "LL10449",
-      "Entity_Name": "Xerox Argentina Industrial & Commercial S.A."
-    },
-    {
-      "Group_Id": "XBS",
-      "Group_Name": "XBS",
-      "Entity_Id": "LL10459",
-      "Entity_Name": "Xerox de Chile S.A."
-    },
-    {
-      "Group_Id": "NA",
-      "Group_Name": "Not Assigned",
-      "Entity_Id": "LL10612",
-      "Entity_Name": "Xerox Canada Finance Inc."
-    },
-    {
-      "Group_Id": "XBS",
-      "Group_Name": "XBS",
-      "Entity_Id": "LL11731",
-      "Entity_Name": "Patient Accounting Service Center LLC"
-    },
-    {
-      "Group_Id": "XBS",
-      "Group_Name": "XBS",
-      "Entity_Id": "LL11736",
-      "Entity_Name": "Buck Consultants, LLC"
-    },
-    {
-      "Group_Id": "XSO",
-      "Group_Name": "Xerox Services Operations",
-      "Entity_Id": "LL11795",
-      "Entity_Name": "ACS Government Solutions Canada Inc."
-    },
-    {
-      "Group_Id": "GIS",
-      "Group_Name": "GIS",
-      "Entity_Id": "LL11798",
-      "Entity_Name": "Affiliated Computer Services (Tianjin) Co., Ltd."
-    },
-    {
-      "Group_Id": "PARC",
-      "Group_Name": "PARC",
-      "Entity_Id": "LL11832",
-      "Entity_Name": "ACS Business Process Solutions Limited"
-    },
-    {
-      "Group_Id": "LDLP",
-      "Group_Name": "Laternal Data, LP",
-      "Entity_Id": "LL11834",
-      "Entity_Name": "Syan Holdings Limited"
-    },
-    {
-      "Group_Id": "XSO",
-      "Group_Name": "Xerox Services Operations",
-      "Entity_Id": "LL11941",
-      "Entity_Name": "ACS Human Services, LLC"
-    },
-    {
-      "Group_Id": "XC",
-      "Group_Name": "XC",
-      "Entity_Id": "LL11943",
-      "Entity_Name": "ACS Healthcare Analytics, Inc."
-    },
-    {
-      "Group_Id": "XIJM",
-      "Group_Name": "XIJM",
-      "Entity_Id": "LL12043",
-      "Entity_Name": "Voice Star Sh.p.k."
-    },
-    {
-      "Group_Id": "XMS",
-      "Group_Name": "XMS",
-      "Entity_Id": "LL12044",
-      "Entity_Name": "Eagle Connect Sh.p.k."
-    },
-    {
-      "Group_Id": "XOI",
-      "Group_Name": "XOI",
-      "Entity_Id": "LL12051",
-      "Entity_Name": "Breakaway Healthcare and Life Sciences LLC"
-    },
-    {
-      "Group_Id": "XOI",
-      "Group_Name": "XOI",
-      "Entity_Id": "LL12117",
-      "Entity_Name": "Restaurant Technology Services LLC"
-    },
-    {
-      "Group_Id": "GIS",
-      "Group_Name": "GIS",
-      "Entity_Id": "LL12163",
-      "Entity_Name": "CPAS Systems, Inc."
-    },
-    {
-      "Group_Id": "LDLP",
-      "Group_Name": "Laternal Data, LP",
-      "Entity_Id": "LL12185",
-      "Entity_Name": "Xerox Lease Receivables 2013-2 LLC"
-    },
-    {
-      "Group_Id": "NA",
-      "Group_Name": "Not Assigned",
-      "Entity_Id": "LL12250",
-      "Entity_Name": "Consilience Software Australasia Pty Ltd"
-    },
-    {
-      "Group_Id": "XC",
-      "Group_Name": "XC",
-      "Entity_Id": "LL12342",
-      "Entity_Name": "Xerox Business Services Bulgaria EOOD"
-    },
-    {
-      "Group_Id": "XSO",
-      "Group_Name": "Xerox Services Operations",
-      "Entity_Id": "LL12344",
-      "Entity_Name": "Rocco Salviola & Associates, Inc."
-    }
-  ]
+    "Application": [
+        {
+            "App_Id": "AGG",
+            "App_Name": "Aggregates"
+        },
+        {
+            "App_Id": "CAL",
+            "App_Name": "Calendar"
+        },
+        {
+            "App_Id": "CTAX",
+            "App_Name": "Cash Tax"
+        },
+        {
+            "App_Id": "CMN",
+            "App_Name": "Common Table"
+        },
+        {
+            "App_Id": "DIGI",
+            "App_Name": "Digitax"
+        },
+        {
+            "App_Id": "DTAX",
+            "App_Name": "Discrete Tax Tracking"
+        },
+        {
+            "App_Id": "DTXX",
+            "App_Name": "DTXX"
+        },
+        {
+            "App_Id": "SCHM",
+            "App_Name": "International Sch M "
+        },
+        {
+            "App_Id": "ITRA",
+            "App_Name": "ITRA"
+        },
+        {
+            "App_Id": "JEP",
+            "App_Name": "Journal Entry"
+        },
+        {
+            "App_Id": "NAGL",
+            "App_Name": "NAGL"
+        },
+        {
+            "App_Id": "OS",
+            "App_Name": "OS Feed"
+        },
+        {
+            "App_Id": "PRJ",
+            "App_Name": "Projects"
+        },
+        {
+            "App_Id": "REC",
+            "App_Name": "Recharges"
+        },
+        {
+            "App_Id": "RPT",
+            "App_Name": "Reports"
+        },
+        {
+            "App_Id": "ROY",
+            "App_Name": "Royalty"
+        },
+        {
+            "App_Id": "SUB F",
+            "App_Name": "Subpart F"
+        },
+        {
+            "App_Id": "ENP",
+            "App_Name": "XIEBV E & P"
+        }
+    ],
+    "Role": [
+        {
+            "Role_Id": "ADMIN",
+            "Role_Name": "Admin"
+        },
+        {
+            "Role_Id": "MNGER",
+            "Role_Name": "Manager"
+        },
+        {
+            "Role_Id": "READO",
+            "Role_Name": "Read-only"
+        },
+        {
+            "Role_Id": "READW",
+            "Role_Name": "Read-Write"
+        }
+    ],
+    "Group": [
+        {
+            "Group_Id": "6465",
+            "Group_Name": "Smart Data"
+        },
+        {
+            "Group_Id": "GIS",
+            "Group_Name": "GIS"
+        },
+        {
+            "Group_Id": "LDLP",
+            "Group_Name": "Laternal Data, LP"
+        },
+        {
+            "Group_Id": "NA",
+            "Group_Name": "Not Assigned"
+        },
+        {
+            "Group_Id": "OBPS",
+            "Group_Name": "OBPS"
+        },
+        {
+            "Group_Id": "PARC",
+            "Group_Name": "PARC"
+        },
+        {
+            "Group_Id": "XBS",
+            "Group_Name": "XBS"
+        },
+        {
+            "Group_Id": "XC",
+            "Group_Name": "XC"
+        },
+        {
+            "Group_Id": "XFS",
+            "Group_Name": "XFS"
+        },
+        {
+            "Group_Id": "XIJM",
+            "Group_Name": "XIJM"
+        },
+        {
+            "Group_Id": "XMPie",
+            "Group_Name": "XMPie"
+        },
+        {
+            "Group_Id": "XMS",
+            "Group_Name": "XMS"
+        },
+        {
+            "Group_Id": "XOI",
+            "Group_Name": "XOI"
+        },
+        {
+            "Group_Id": "XSO",
+            "Group_Name": "Xerox Services Operations"
+        }
+    ],
+    "Entity": [
+        {
+            "Group_Id": "LDLP",
+            "Group_Name": "Laternal Data, LP",
+            "Entity_Id": "LD11879",
+            "Entity_Name": "ACS BPS, Ltd - UAE Branch"
+        },
+        {
+            "Group_Id": "XBS",
+            "Group_Name": "XBS",
+            "Entity_Id": "LD11880",
+            "Entity_Name": "ACS BPS, Ltd Argentina Branch"
+        },
+        {
+            "Group_Id": "PARC",
+            "Group_Name": "PARC",
+            "Entity_Id": "LD12094",
+            "Entity_Name": "Wireless Data Services Limited Dubai Branch"
+        },
+        {
+            "Group_Id": "PARC",
+            "Group_Name": "PARC",
+            "Entity_Id": "LL10145",
+            "Entity_Name": "Xerox Canada Inc."
+        },
+        {
+            "Group_Id": "XOI",
+            "Group_Name": "XOI",
+            "Entity_Id": "LL10152",
+            "Entity_Name": "Xerox (Barbados) Leasing SRL"
+        },
+        {
+            "Group_Id": "XIJM",
+            "Group_Name": "XIJM",
+            "Entity_Id": "LL10166",
+            "Entity_Name": "Ionographic Operations Partnership"
+        },
+        {
+            "Group_Id": "OBPS",
+            "Group_Name": "OBPS",
+            "Entity_Id": "LL10313",
+            "Entity_Name": "Xerox AG"
+        },
+        {
+            "Group_Id": "XMPie",
+            "Group_Name": "XMPie",
+            "Entity_Id": "LL10429",
+            "Entity_Name": "Xerox Comercio e Industria LTDA"
+        },
+        {
+            "Group_Id": "OBPS",
+            "Group_Name": "OBPS",
+            "Entity_Id": "LL10449",
+            "Entity_Name": "Xerox Argentina Industrial & Commercial S.A."
+        },
+        {
+            "Group_Id": "XBS",
+            "Group_Name": "XBS",
+            "Entity_Id": "LL10459",
+            "Entity_Name": "Xerox de Chile S.A."
+        },
+        {
+            "Group_Id": "NA",
+            "Group_Name": "Not Assigned",
+            "Entity_Id": "LL10612",
+            "Entity_Name": "Xerox Canada Finance Inc."
+        },
+        {
+            "Group_Id": "XBS",
+            "Group_Name": "XBS",
+            "Entity_Id": "LL11731",
+            "Entity_Name": "Patient Accounting Service Center LLC"
+        },
+        {
+            "Group_Id": "XBS",
+            "Group_Name": "XBS",
+            "Entity_Id": "LL11736",
+            "Entity_Name": "Buck Consultants, LLC"
+        },
+        {
+            "Group_Id": "XSO",
+            "Group_Name": "Xerox Services Operations",
+            "Entity_Id": "LL11795",
+            "Entity_Name": "ACS Government Solutions Canada Inc."
+        },
+        {
+            "Group_Id": "GIS",
+            "Group_Name": "GIS",
+            "Entity_Id": "LL11798",
+            "Entity_Name": "Affiliated Computer Services (Tianjin) Co., Ltd."
+        },
+        {
+            "Group_Id": "PARC",
+            "Group_Name": "PARC",
+            "Entity_Id": "LL11832",
+            "Entity_Name": "ACS Business Process Solutions Limited"
+        },
+        {
+            "Group_Id": "LDLP",
+            "Group_Name": "Laternal Data, LP",
+            "Entity_Id": "LL11834",
+            "Entity_Name": "Syan Holdings Limited"
+        },
+        {
+            "Group_Id": "XSO",
+            "Group_Name": "Xerox Services Operations",
+            "Entity_Id": "LL11941",
+            "Entity_Name": "ACS Human Services, LLC"
+        },
+        {
+            "Group_Id": "XC",
+            "Group_Name": "XC",
+            "Entity_Id": "LL11943",
+            "Entity_Name": "ACS Healthcare Analytics, Inc."
+        },
+        {
+            "Group_Id": "XIJM",
+            "Group_Name": "XIJM",
+            "Entity_Id": "LL12043",
+            "Entity_Name": "Voice Star Sh.p.k."
+        },
+        {
+            "Group_Id": "XMS",
+            "Group_Name": "XMS",
+            "Entity_Id": "LL12044",
+            "Entity_Name": "Eagle Connect Sh.p.k."
+        },
+        {
+            "Group_Id": "XOI",
+            "Group_Name": "XOI",
+            "Entity_Id": "LL12051",
+            "Entity_Name": "Breakaway Healthcare and Life Sciences LLC"
+        },
+        {
+            "Group_Id": "XOI",
+            "Group_Name": "XOI",
+            "Entity_Id": "LL12117",
+            "Entity_Name": "Restaurant Technology Services LLC"
+        },
+        {
+            "Group_Id": "GIS",
+            "Group_Name": "GIS",
+            "Entity_Id": "LL12163",
+            "Entity_Name": "CPAS Systems, Inc."
+        },
+        {
+            "Group_Id": "LDLP",
+            "Group_Name": "Laternal Data, LP",
+            "Entity_Id": "LL12185",
+            "Entity_Name": "Xerox Lease Receivables 2013-2 LLC"
+        },
+        {
+            "Group_Id": "NA",
+            "Group_Name": "Not Assigned",
+            "Entity_Id": "LL12250",
+            "Entity_Name": "Consilience Software Australasia Pty Ltd"
+        },
+        {
+            "Group_Id": "XC",
+            "Group_Name": "XC",
+            "Entity_Id": "LL12342",
+            "Entity_Name": "Xerox Business Services Bulgaria EOOD"
+        },
+        {
+            "Group_Id": "XSO",
+            "Group_Name": "Xerox Services Operations",
+            "Entity_Id": "LL12344",
+            "Entity_Name": "Rocco Salviola & Associates, Inc."
+        }
+    ]
 }
