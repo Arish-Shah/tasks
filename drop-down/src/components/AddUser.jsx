@@ -81,9 +81,15 @@ function AddUser({ data, existingUsers, onAdd }) {
     // eslint-disable-next-line
   }, [existingUsers, values.id]);
 
+  // useEffect(() => {
+  //   console.log(values.group);
+
+  //   // eslint-disable-next-line
+  // }, [values.group]);
+
   // Checks everything if role selected is Manager
   useEffect(() => {
-    if (values.role === 'Manager') {
+    if (values.role === 'Admin') {
       setValues({
         ...values,
         application: data.application,
@@ -209,7 +215,7 @@ function AddUser({ data, existingUsers, onAdd }) {
       {/* Entity MultiSelect dropdown */}
       <div className="form-group col">
         <GroupedMultiSelect
-          placeholder="Entitie"
+          placeholder="Entity"
           options={options.entity}
           value={values.entity}
           onChange={handleEntityChange}

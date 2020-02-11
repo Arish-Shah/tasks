@@ -13,26 +13,26 @@ function App() {
   };
 
   const [users, setUsers] = useState([
-    {
-      id: '121',
-      role: 'Read-only',
-      application: [
-        { value: 'CAL', label: 'Calendar' },
-        { value: 'DTAX', label: 'Discrete Tax Tracking' }
-      ],
-      group: [
-        { value: 'LDLP', label: 'Laternal Data, LP' },
-        { value: 'XC', label: 'XC' }
-      ],
-      entity: {
-        'Laternal Data, LP': [
-          { label: 'Syan Holdings Limited', value: 'LL11834' }
-        ],
-        XBS: [
-          { label: 'Patient Accounting Service Center LLC', value: 'LL11731' }
-        ]
-      }
-    }
+    // {
+    //   id: '121',
+    //   role: 'Read-only',
+    //   application: [
+    //     { value: 'CAL', label: 'Calendar' },
+    //     { value: 'DTAX', label: 'Discrete Tax Tracking' }
+    //   ],
+    //   group: [
+    //     { value: 'LDLP', label: 'Laternal Data, LP' },
+    //     { value: 'XC', label: 'XC' }
+    //   ],
+    //   entity: {
+    //     'Laternal Data, LP': [
+    //       { label: 'Syan Holdings Limited', value: 'LL11834' }
+    //     ],
+    //     XBS: [
+    //       { label: 'Patient Accounting Service Center LLC', value: 'LL11731' }
+    //     ]
+    //   }
+    // }
   ]);
 
   const handleAdd = user => {
@@ -56,7 +56,7 @@ function App() {
   return (
     <div className="container">
       <div className="row">
-        <div className="mt-4 mx-auto">
+        <div style={{ width: '100%' }} className="mt-4 mx-auto">
           <AddUser data={data} existingUsers={users} onAdd={handleAdd} />
           <hr />
           <Users users={users} onRemove={handleRemove} />

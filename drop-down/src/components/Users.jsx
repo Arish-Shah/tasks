@@ -24,7 +24,7 @@ function User({ index, id, role, application, group, entity, onRemove }) {
   Object.keys(entity).forEach(name => {
     count += entity[name].length;
   });
-  let entityText = `${count} Entitie(s) selected`;
+  let entityText = `Entity: ${count} selected`;
 
   return (
     <div className="form-row">
@@ -43,23 +43,23 @@ function User({ index, id, role, application, group, entity, onRemove }) {
       </div>
       <div className="form-group col">
         <button
-          className="btn btn-light border dropdown-toggle"
+          className="btn btn-light btn-block border dropdown-toggle"
           disabled={true}
         >
-          {`${application.length} Application(s) selected`}
+          {` Application: ${application.length} selected`}
         </button>
       </div>
       <div className="form-group col">
         <button
-          className="btn btn-light border dropdown-toggle"
+          className="btn btn-light btn-block border dropdown-toggle"
           disabled={true}
         >
-          {`${group.length} Group(s) selected`}
+          {`Group: ${group.length} selected`}
         </button>
       </div>
       <div className="form-group col">
         <button
-          className="btn btn-light border dropdown-toggle"
+          className="btn btn-light btn-block border dropdown-toggle"
           disabled={true}
         >
           {entityText}

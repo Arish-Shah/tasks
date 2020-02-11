@@ -50,23 +50,40 @@ function GroupedMultiSelect({
     onChange(tempObj);
   };
 
+  const handleSelectAll = () => {
+    setSelected(options);
+    checkAndReturn(options);
+  };
+
+  const handleDeselectAll = () => {
+    setSelected({});
+    checkAndReturn({});
+  };
+
   // Set Button Text
   let count = 0;
   Object.keys(selected).forEach(name => {
     count += selected[name].length || 0;
   });
-  let buttonText = `${count} ${placeholder}(s) selected`;
+  const buttonText = count ? `${placeholder}: ${count} selected` : placeholder;
 
   return (
     <div className={`dropdown ${showClass}`} ref={containerRef}>
       <button
         onMouseDown={handleShow}
-        className="btn btn-white border dropdown-toggle"
+        style={{ width: '100%' }}
+        className="btn btn-white btn-block border dropdown-toggle"
         disabled={isDisabled}
       >
         {buttonText}
       </button>
       <div className={`dropdown-menu ${showClass} pre-scrollable`}>
+        <button onClick={handleSelectAll} className="dropdown-item">
+          ✔ Select All
+        </button>
+        <button onClick={handleDeselectAll} className="dropdown-item">
+          ✖ Unselect All
+        </button>
         {Object.keys(options).map((option, i) => {
           return (
             <React.Fragment key={i}>

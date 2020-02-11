@@ -30,16 +30,37 @@ function MultiSelect({ options, placeholder, value, onChange, isDisabled }) {
     onChange(updatedSelected);
   };
 
+  const handleSelectAll = () => {
+    setSelected(options);
+    onChange(options);
+  };
+
+  const handleDeselectAll = () => {
+    setSelected([]);
+    onChange([]);
+  };
+
+  const buttonText = selected.length
+    ? `${placeholder}: ${selected.length} selected`
+    : placeholder;
+
   return (
     <div className={`dropdown ${showClass}`} ref={containerRef}>
       <button
         onMouseDown={handleShow}
-        className="btn btn-white border dropdown-toggle"
+        className="btn btn-white btn-block border dropdown-toggle"
         disabled={isDisabled}
       >
-        {`${selected.length} ${placeholder}(s) selected`}
+        {buttonText}
       </button>
       <div className={`dropdown-menu ${showClass} pre-scrollable`}>
+        <button onClick={handleSelectAll} className="dropdown-item">
+          ✔ Select All
+        </button>
+        <button onClick={handleDeselectAll} className="dropdown-item">
+          ✖ Unselect All
+        </button>
+
         {options.map((option, i) => {
           const index = selected.findIndex(item => item.value === option.value);
           const className =
@@ -59,5 +80,4 @@ function MultiSelect({ options, placeholder, value, onChange, isDisabled }) {
     </div>
   );
 }
-
 export default MultiSelect;
