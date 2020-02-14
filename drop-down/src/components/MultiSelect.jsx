@@ -80,4 +80,5 @@ function MultiSelect({ options, placeholder, value, onChange, isDisabled }) {
     </div>
   );
 }
+
 export default MultiSelect;

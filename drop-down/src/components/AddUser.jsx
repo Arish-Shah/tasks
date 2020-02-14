@@ -24,10 +24,10 @@ function AddUser({ data, existingUsers, onAdd }) {
 
   // Disabling the inputs when previous one isn't filled
   const [disabled, setDisabled] = useState({
-    role: true,
-    application: true,
-    group: true,
-    entity: true
+    role: false,
+    application: false,
+    group: false,
+    entity: false
   });
 
   // Focus Id input and disable Button
@@ -39,53 +39,62 @@ function AddUser({ data, existingUsers, onAdd }) {
     buttonRef.current.disabled = true;
   }, []);
 
-  // For assigning roles
   useEffect(() => {
-    // Hiding the Roles and Entity
-    let updatedRole = [...options.role];
-    let updatedEntity = { ...options.entity };
-    let flag = false;
+    setValues({ ...values, group: [], entity: {} });
+    setDisabled({ ...disabled, entity: true });
+    setOptions({ ...options, entity: data.entity });
 
-    existingUsers.forEach(existingUser => {
-      if (existingUser.id === values.id) {
-        // For Role
-        const i = updatedRole.findIndex(
-          role => role.label === existingUser.role
-        );
-        updatedRole.splice(i, 1);
+    if (existingUsers.length) {
+      let updatedRole = [...data.role];
+      // let updatedEntity = { ...data.entity };
 
-        // For Entity
-        Object.keys(updatedEntity).forEach(name => {
-          if (existingUser.entity[name]) {
-            existingUser.entity[name].forEach(user => {
-              const i = updatedEntity[name].findIndex(
-                en => en.label === user.label
-              );
-              updatedEntity[name].splice(i, 1);
-            });
-          }
-
-          if (!updatedEntity[name].length) {
-            delete updatedEntity[name];
-          }
-        });
-
-        flag = true;
-      }
-    });
-
-    flag
-      ? setOptions({ ...options, role: updatedRole, entity: updatedEntity })
-      : setOptions({ ...options, role: data.role, entity: data.entity });
+      existingUsers.forEach(existingUser => {
+        if (existingUser.id === values.id) {
+          updatedRole = updatedRole.filter(
+            role => role.label !== existingUser.role
+          );
+        }
+      });
+      setOptions({ ...options, role: updatedRole });
+    }
 
     // eslint-disable-next-line
-  }, [existingUsers, values.id]);
+  }, [values.id]);
 
-  // useEffect(() => {
-  //   console.log(values.group);
+  useEffect(() => {
+    const updatedEntity = {};
 
-  //   // eslint-disable-next-line
-  // }, [values.group]);
+    if (values.group.length) {
+      values.group.forEach(group => {
+        if (data.entity[group.label]) {
+          updatedEntity[group.label] = data.entity[group.label];
+        }
+      });
+    }
+
+    if (existingUsers.length) {
+      existingUsers.forEach(existingUser => {
+        if (existingUser.id === values.id) {
+          existingUser.group.forEach(group => {
+            if (
+              updatedEntity[group.label] &&
+              existingUser.entity[group.label]
+            ) {
+              existingUser.entity[group.label].forEach(existingEntity => {
+                updatedEntity[group.label] = updatedEntity[group.label].filter(
+                  en => en.label !== existingEntity.label
+                );
+              });
+            }
+          });
+        }
+      });
+    }
+
+    setOptions({ ...options, entity: updatedEntity });
+
+    // eslint-disable-next-line
+  }, [values.group]);
 
   // Checks everything if role selected is Manager
   useEffect(() => {
@@ -155,6 +164,7 @@ function AddUser({ data, existingUsers, onAdd }) {
   const handleAddButton = () => {
     onAdd(values);
     setValues(defaultValues);
+    setDisabled({ role: true, application: true, group: true, entity: true });
     idRef.current.focus();
   };
 

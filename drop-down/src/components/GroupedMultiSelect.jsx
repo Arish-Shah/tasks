@@ -85,7 +85,7 @@ function GroupedMultiSelect({
           ✖ Unselect All
         </button>
         {Object.keys(options).map((option, i) => {
-          return (
+          return options[option].length ? (
             <React.Fragment key={i}>
               <h6 className="dropdown-header">{option}</h6>
               {options[option].map((item, j) => {
@@ -107,7 +107,7 @@ function GroupedMultiSelect({
               })}
               <div className="dropdown-divider"></div>
             </React.Fragment>
-          );
+          ) : null;
         })}
       </div>
     </div>
