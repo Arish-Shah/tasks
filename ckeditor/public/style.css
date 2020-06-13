@@ -11,7 +11,7 @@ body {
 .document-editor {
   border: 1px solid var(--ck-color-base-border);
   border-radius: var(--ck-border-radius);
-  max-height: 645px;
+  max-height: 750px;
   display: flex;
   flex-flow: column nowrap;
 }

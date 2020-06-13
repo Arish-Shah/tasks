@@ -37,7 +37,5 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
-  "devDependencies": {
-    "@ckeditor/ckeditor5-inspector": "^2.1.0"
-  }
+  "devDependencies": {}
 }

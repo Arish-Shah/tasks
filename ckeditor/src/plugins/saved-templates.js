@@ -27,7 +27,6 @@ class SavedTemplates {
     const html = this.innerHTML;
     const viewFragment = editor.data.processor.toView(html);
     const modelFragment = editor.data.toModel(viewFragment);
-
     editor.model.insertContent(modelFragment);
   }
 

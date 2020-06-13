@@ -29,8 +29,6 @@ import PageBreak from '@ckeditor/ckeditor5-page-break/src/pagebreak';
 import SaveAsTemplate from './plugins/save-as-template';
 import SavedTemplates from './plugins/saved-templates';
 
-import CKEditorInspector from '@ckeditor/ckeditor5-inspector';
-
 DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
   plugins: [
     Essentials,
@@ -108,7 +106,6 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     const toolbarContainer = document.querySelector(
       '.document-editor__toolbar'
     );
-    // CKEditorInspector.attach(editor);
     toolbarContainer.appendChild(editor.ui.view.toolbar.element);
     window.editor = editor;
     SavedTemplates.init();
