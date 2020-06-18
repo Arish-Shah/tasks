@@ -18,7 +18,7 @@ class SaveAsTemplate extends Plugin {
         const selection = editor.model.document.selection;
         const fragment = editor.model.getSelectedContent(selection);
 
-        SavedTemplates.add(editor.data.stringify(fragment));
+        SavedTemplates.add(editor.data.stringify(fragment), true);
 
         editor.model.change(writer => {
           const position = selection.isBackward
