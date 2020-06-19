@@ -28,6 +28,7 @@ import PageBreak from '@ckeditor/ckeditor5-page-break/src/pagebreak';
 
 import SaveAsTemplate from './plugins/save-as-template';
 import SavedTemplates from './plugins/saved-templates';
+import DocumentExport from './plugins/doc-export';
 
 DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
   plugins: [
@@ -54,9 +55,12 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     ImageStyle,
     ImageToolbar,
     ImageUpload,
-    SaveAsTemplate
+    SaveAsTemplate,
+    DocumentExport
   ],
   toolbar: [
+    'docExport',
+    '|',
     'heading',
     '|',
     'bold',
@@ -80,7 +84,7 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     'undo',
     'redo',
     '|',
-    'pageBreak'
+    'pageBreak',
   ],
   table: {
     contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']

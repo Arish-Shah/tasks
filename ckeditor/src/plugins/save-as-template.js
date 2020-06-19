@@ -27,7 +27,6 @@ class SaveAsTemplate extends Plugin {
           writer.setSelection(writer.createPositionAt(position));
         });
       });
-
       return view;
     });
   }
