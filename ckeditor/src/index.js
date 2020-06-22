@@ -8,6 +8,7 @@ import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import StrikeThrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
+import Font from '@ckeditor/ckeditor5-font/src/font';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent';
@@ -39,6 +40,7 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     Italic,
     Underline,
     StrikeThrough,
+    Font,
     Heading,
     Alignment,
     List,
@@ -67,6 +69,11 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     'italic',
     'underline',
     'strikethrough',
+    '|',
+    'fontSize', 
+    'fontFamily', 
+    'fontColor', 
+    'fontBackgroundColor',
     '|',
     'alignment',
     '|',

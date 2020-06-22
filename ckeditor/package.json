@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
-    "start": "npm run watch"
+    "start": "npm run watch",
+    "deploy": "surge public"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "@ckeditor/ckeditor5-easy-image": "^19.0.1",
     "@ckeditor/ckeditor5-editor-decoupled": "^19.0.1",
     "@ckeditor/ckeditor5-essentials": "^19.0.1",
+    "@ckeditor/ckeditor5-font": "^19.0.1",
     "@ckeditor/ckeditor5-heading": "^19.0.1",
     "@ckeditor/ckeditor5-horizontal-line": "^19.0.1",
     "@ckeditor/ckeditor5-image": "^19.0.1",
@@ -33,6 +35,7 @@
     "@ckeditor/ckeditor5-undo": "^19.0.1",
     "file-saver": "^2.0.2",
     "html-docx-js": "^0.3.1",
+    "juice": "^6.0.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^3.1.0",
     "style-loader": "^1.2.1",

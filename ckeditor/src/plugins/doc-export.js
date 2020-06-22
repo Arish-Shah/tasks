@@ -1,9 +1,10 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import htmlDocx from 'html-docx-js/dist/html-docx';
-import { saveAs } from 'file-saver/dist/FileSaver';
 
+import { saveAs } from 'file-saver/dist/FileSaver';
 import { createFile } from './util';
+import juice from 'juice';
 
 class DocumentExport extends Plugin {
   init() {
@@ -26,8 +27,9 @@ class DocumentExport extends Plugin {
   }
 
   exportHTML(htmlString) {
-    const html = createFile(htmlString);
-    const docx = htmlDocx.asBlob(html);
+    const { html, css } = createFile(htmlString);
+    const styledHtml = juice.inlineContent(html, css);
+    const docx = htmlDocx.asBlob(styledHtml);
     saveAs(docx, 'document.doc');
   }
 }
