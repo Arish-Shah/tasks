@@ -70,9 +70,9 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     'underline',
     'strikethrough',
     '|',
-    'fontSize', 
-    'fontFamily', 
-    'fontColor', 
+    'fontSize',
+    'fontFamily',
+    'fontColor',
     'fontBackgroundColor',
     '|',
     'alignment',
@@ -91,7 +91,7 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     'undo',
     'redo',
     '|',
-    'pageBreak',
+    'pageBreak'
   ],
   table: {
     contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
@@ -113,7 +113,7 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     uploadUrl: ''
   }
 })
-  .then(editor => {
+  .then((editor) => {
     const toolbarContainer = document.querySelector(
       '.document-editor__toolbar'
     );
@@ -121,4 +121,4 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     window.editor = editor;
     SavedTemplates.init();
   })
-  .catch(error => console.error(error.stack));
+  .catch((error) => console.error(error.stack));

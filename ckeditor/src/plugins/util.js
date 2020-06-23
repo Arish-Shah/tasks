@@ -1,7 +1,7 @@
 export function createFile(htmlString) {
   const css = `
     h2 {
-      color: red;
+      color: blue;
     }
   `;
 
