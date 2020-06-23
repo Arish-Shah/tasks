@@ -17,8 +17,7 @@
     "build": "parcel build src/index.html --out-dir public --public-url ./"
   },
   "staticFiles": {
-    "staticPath": "src",
-    "staticOutDir": ""
+    "staticPath": "src/static"
   },
   "keywords": [],
   "author": "",
