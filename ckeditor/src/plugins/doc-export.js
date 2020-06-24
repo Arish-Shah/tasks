@@ -9,15 +9,15 @@ import juice from 'juice';
 class DocumentExport extends Plugin {
   init() {
     const editor = this.editor;
-    
+
     editor.ui.componentFactory.add('docExport', locale => {
       const view = new ButtonView(locale);
-      
+
       view.set({
         label: 'Export',
         withText: true
       });
-      
+
       view.on('execute', () => {
         const htmlText = editor.getData();
         this.exportHTML(htmlText);

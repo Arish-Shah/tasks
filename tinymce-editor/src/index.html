@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./global.css" />
-    <title>TinyMCE</title>
+    <title>TinyMCE Editor</title>
   </head>
-  <body>
-    <div id="editor">
-      <h1 style="color: red;">FOO</h1>
-    </div>
+  <body ng-app="tinymceApp" ng-controller="tinyMceCtrl">
+    <div id="editor"></div>
+    <button ng-click="handleClick()">Export</button>
     <script src="./app.js"></script>
   </body>
 </html>
+<!-- https://transportalqa-api.azurewebsites.net/DocxConvertedToHtml/4A004F007300330055003600450061004F004C00.html -->
+<!-- https://transportalqa-api.azurewebsites.net/Templates/123.docx -->
