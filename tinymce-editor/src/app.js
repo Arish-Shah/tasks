@@ -1,6 +1,6 @@
 import tinymce from 'tinymce';
-import mammoth from 'mammoth';
 import { exportDoc } from './util/export-doc';
+import mammoth from 'mammoth';
 
 const exportButton = document.querySelector('#export-button');
 
@@ -37,15 +37,33 @@ tinymce.init({
     'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
   noneditable_noneditable_class: 'mceNonEditable',
   toolbar_mode: 'sliding',
-  contextmenu: 'link image imagetools table'
+  contextmenu: 'link image imagetools table',
+  setup: function (editor) {
+    editor.on('init', function () {
+      // // TODO: Ask another url cuz this ain't working
+      // fetch('https://transportalqa-api.azurewebsites.net/Templates/123.docx')
+      //   .then(res => res.arrayBuffer())
+      //   .then(res => mammoth.convertToHtml({ arrayBuffer: res }))
+      //   .then(console.log);
+    });
+  }
 });
-
-fetch(
-  'https://transportalqa-api.azurewebsites.net/DocxConvertedToHtml/4A004F007300330055003600450061004F004C00.html'
-)
-  .then(res => res.text())
-  .then(res => tinymce.activeEditor.setContent(res));
 
 exportButton.addEventListener('click', () =>
   exportDoc(tinymce.activeEditor.getContent())
 );
+
+const upload = document.querySelector('#fileUpload');
+upload.addEventListener('change', e => {
+  let reader = new FileReader();
+  reader.readAsArrayBuffer(e.target.files[0]);
+  reader.onload = function () {
+    mammoth.convertToHtml({ arrayBuffer: reader.result }).then(res => {
+      tinymce.activeEditor.setContent(res.value);
+    });
+  };
+
+  reader.onerror = function () {
+    console.log(reader.error);
+  };
+});
