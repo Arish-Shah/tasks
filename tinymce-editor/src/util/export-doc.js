@@ -13,5 +13,5 @@ export function exportDoc(htmlString) {
   </html>
   `;
   const doc = htmlDocx.asBlob(html);
-  saveAs(doc, 'document.doc');
+  saveAs(doc, 'document.docx');
 }
