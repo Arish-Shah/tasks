@@ -31,6 +31,8 @@ import SaveAsTemplate from './plugins/save-as-template';
 import SavedTemplates from './plugins/saved-templates';
 import DocumentExport from './plugins/doc-export';
 
+import mammoth from 'mammoth';
+
 DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
   plugins: [
     Essentials,
@@ -122,3 +124,18 @@ DecoupledEditor.create(document.querySelector('.document-editor__editable'), {
     SavedTemplates.init();
   })
   .catch((error) => console.error(error.stack));
+
+const inputFile = document.getElementById('inputFile');
+inputFile.addEventListener('change', (e) => {
+  let reader = new FileReader();
+  reader.readAsArrayBuffer(e.target.files[0]);
+  reader.onload = function () {
+    mammoth.convertToHtml({ arrayBuffer: reader.result }).then((res) => {
+      editor.setData(res.value);
+    });
+  };
+
+  reader.onerror = function () {
+    console.log(reader.error);
+  };
+});

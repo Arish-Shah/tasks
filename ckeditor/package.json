@@ -36,6 +36,7 @@
     "file-saver": "^2.0.2",
     "html-docx-js": "^0.3.1",
     "juice": "^6.0.0",
+    "mammoth": "^1.4.9",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^3.1.0",
     "style-loader": "^1.2.1",
