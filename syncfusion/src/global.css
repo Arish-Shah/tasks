@@ -1,16 +1,9 @@
-@import '../node_modules/@syncfusion/ej2/fabric.css';
-
 body {
-  margin: 0 !important;
+  margin: 0;
   overflow: hidden;
 }
 
-.e-de-status-bar {
-  display: none;
-}
-
-#documenteditor_titlebar {
-  border-bottom: 1px solid #2b3481;
+#titlebar {
   height: 36px;
   line-height: 26px;
   width: 100%;
@@ -45,6 +38,9 @@ body {
   border-color: #e4e4e4 !important;
 }
 
+[contenteditable='true'].single-line * {
+  white-space: nowrap;
+}
 /** Document editor sample level font icons*/
 
 @font-face {
