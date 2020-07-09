@@ -14,6 +14,7 @@ tinymce.init({
   toolbar:
     'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
   toolbar_sticky: true,
+  statusbar: false,
   templates: [
     {
       title: 'New Table',
@@ -66,11 +67,9 @@ upload.addEventListener('change', (e) => {
   let reader = new FileReader();
   reader.readAsArrayBuffer(e.target.files[0]);
   reader.onload = function () {
-    mammoth
-      .convertToHtml({ arrayBuffer: reader.result })
-      .then((res) => {
-        tinymce.activeEditor.setContent(res.value);
-      });
+    mammoth.convertToHtml({ arrayBuffer: reader.result }).then((res) => {
+      tinymce.activeEditor.setContent(res.value);
+    });
   };
 
   reader.onerror = function () {

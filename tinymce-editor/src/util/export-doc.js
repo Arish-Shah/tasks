@@ -9,7 +9,9 @@ export function exportDoc(htmlString) {
       <meta charset="utf-8" />
       <title>Word Document</title>
     </head>
+    <header>Some Header Text</header>
     <body>${htmlString}</body>
+    <footer>Some Footer Text</footer>
   </html>
   `;
   const doc = htmlDocx.asBlob(html);

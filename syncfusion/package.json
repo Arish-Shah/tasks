@@ -1,12 +1,26 @@
 {
-  "name": "try",
+  "name": "syncfusion",
   "version": "1.0.0",
   "description": "",
-  "main": "data.js",
+  "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^3.6.0",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@syncfusion/ej2": "^18.2.44",
+    "@syncfusion/ej2-documenteditor": "^18.2.44"
+  }
 }
