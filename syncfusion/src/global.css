@@ -28,6 +28,8 @@ body {
 .single-line {
   cursor: text !important;
   outline: none;
+  font-family: 'Roboto', 'Segoe UI', 'GeezaPro', 'DejaVu Serif', 'sans-serif',
+    '-apple-system', 'BlinkMacSystemFont' !important;
 }
 
 .single-line:hover {
