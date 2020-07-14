@@ -1,7 +1,8 @@
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownButton } from '@syncfusion/ej2-splitbuttons';
 import { Button } from '@syncfusion/ej2-buttons';
-import { titleStyles, buttonStyles } from './util/styles';
+import { titleStyles, buttonStyles, fetchUrl } from './util/styles';
+import Placeholder from './util/placeholder';
 
 export default class TitleBar {
   constructor(element, docEditor) {
@@ -12,26 +13,41 @@ export default class TitleBar {
   }
 
   initializeTitleBar = () => {
+    this.fileUpload = document.getElementById('fileUpload');
+    this.fileUpload.setAttribute(
+      'accept',
+      '.dotx,.docx,.docm,.dot,.doc,.rtf,.txt,.xml,.sfdt'
+    );
+
     this.documentTitle = createElement('label', {
       id: 'documenteditor_title_name',
-      styles: titleStyles,
+      styles: titleStyles
     });
 
     this.documentTitleContentEditor = createElement('div', {
       id: 'documenteditor_title_contentEditor',
-      className: 'single-line',
+      className: 'single-line'
     });
 
     this.documentTitleContentEditor.appendChild(this.documentTitle);
     this.titleBarDiv.appendChild(this.documentTitleContentEditor);
     this.documentTitleContentEditor.setAttribute(
       'title',
-      'Document Name. Click to Change',
+      'Document Name. Click to Change'
+    );
+
+    this.placeholder = this.addButton(
+      '',
+      'Placeholder',
+      buttonStyles,
+      'documenteditor-placeholder',
+      'Placeholder Example',
+      false
     );
 
     let items = [
       { text: 'Microsoft Word (.docx)', id: 'word' },
-      { text: 'Syncfusion Document Text (.sfdt)', id: 'sfdt' },
+      { text: 'Syncfusion Document Text (.sfdt)', id: 'sfdt' }
     ];
 
     this.export = this.addButton(
@@ -41,7 +57,7 @@ export default class TitleBar {
       'documenteditor-share',
       'Download this document.',
       true,
-      items,
+      items
     );
   };
 
@@ -51,15 +67,14 @@ export default class TitleBar {
       .querySelectorAll('li')[0]
       .setAttribute(
         'title',
-        'Download a copy of this document to your computer as a DOCX file.',
+        'Download a copy of this document to your computer as a DOCX file.'
       );
-    // tslint:disable-next-line:max-line-length
     document
       .getElementById('documenteditor-share-popup')
       .querySelectorAll('li')[1]
       .setAttribute(
         'title',
-        'Download a copy of this document to your computer as an SFDT file.',
+        'Download a copy of this document to your computer as an SFDT file.'
       );
   };
 
@@ -73,6 +88,7 @@ export default class TitleBar {
         }
       }
     });
+
     this.documentTitleContentEditor.addEventListener('blur', () => {
       if (this.documentTitleContentEditor.textContent === '') {
         this.documentTitleContentEditor.textContent = 'Document1';
@@ -80,8 +96,32 @@ export default class TitleBar {
       this.documentTitleContentEditor.contentEditable = 'false';
       this.documentEditor.documentName = this.documentTitle.textContent;
     });
+
     this.documentTitleContentEditor.addEventListener('click', () => {
       this.updateDocumentEditorTitle();
+    });
+
+    this.fileUpload.addEventListener('change', (e) => {
+      if (!e.target.files[0]) return;
+      const formData = new FormData();
+      formData.append('files', e.target.files[0]);
+
+      fetch(fetchUrl, {
+        method: 'POST',
+        body: formData
+      })
+        .then((res) => res.text())
+        .then((res) => {
+          const ph = new Placeholder(res);
+          this.documentEditor.open(
+            ph.fill({ name: 'Arish', title: 'Testing', company: 'ABC' })
+          );
+        })
+        .catch((err) => console.log(err));
+    });
+
+    this.placeholder.element.addEventListener('click', (e) => {
+      this.fileUpload.click();
     });
   };
 
@@ -113,15 +153,15 @@ export default class TitleBar {
           content: btnText,
           open: () => {
             this.setTooltipForPopup();
-          },
+          }
         },
-        button,
+        button
       );
       return dropButton;
     } else {
       let ejButton = new Button(
         { iconCss: iconClass, content: btnText },
-        button,
+        button
       );
       return ejButton;
     }
@@ -148,7 +188,7 @@ export default class TitleBar {
       this.documentEditor.documentName === ''
         ? 'Untitled'
         : this.documentEditor.documentName,
-      format,
+      format
     );
   };
 }

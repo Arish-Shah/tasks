@@ -10,7 +10,7 @@ export const titleStyles = `
 `;
 
 export const buttonStyles = `
-  font-family: "Roboto", "Segoe UI", "GeezaPro", "DejaVu Serif", "sans-serif", "-apple-system", "BlinkMacSystemFont", cursive,inherit;
+  font-family: "Roboto", "Segoe UI", "GeezaPro", "DejaVu Serif", "sans-serif", "-apple-system", "BlinkMacSystemFont";
   float: right;
   background: transparent;
   box-shadow: none;
@@ -27,3 +27,6 @@ export const buttonStyles = `
 
 export const serviceUrl =
   'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/';
+
+export const fetchUrl =
+  'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/Import';
