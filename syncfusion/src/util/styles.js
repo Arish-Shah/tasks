@@ -20,7 +20,6 @@ export const buttonStyles = `
   font-size: 12px;
   text-transform: capitalize;
   margin-top: 4px;
-  margin-right: 10px;
   height: 28px;
   font-weight: 400;
 `;

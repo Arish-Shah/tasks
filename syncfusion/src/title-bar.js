@@ -114,7 +114,12 @@ export default class TitleBar {
         .then((res) => {
           const ph = new Placeholder(res);
           this.documentEditor.open(
-            ph.fill({ name: 'Arish', title: 'Testing', company: 'ABC' })
+            ph.fill({
+              company: 'ABC Corporation',
+              country: 'India',
+              date: new Date().toDateString(),
+              year: 2018
+            })
           );
         })
         .catch((err) => console.log(err));
