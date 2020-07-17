@@ -7,7 +7,6 @@ import Placeholder from './util/placeholder';
 
 export default class TitleBar {
   /**
-   *
    * @param {HTMLElement} element
    * @param {DocumentEditor} docEditor
    */
@@ -76,7 +75,7 @@ export default class TitleBar {
       false
     );
 
-    this.fetchFiles();
+    // this.fetchFiles();
   };
 
   fetchFiles = () => {
@@ -102,7 +101,7 @@ export default class TitleBar {
   getItems = (response) => {
     /* This function is called to make the response object look similar to .NET api */
     // const obj = this.firebase(response); // set this to -> const obj = response;
-    const obj = response;
+    const obj = this.firebase(response);
 
     const items = [];
     Object.keys(obj).forEach((key, index) => {

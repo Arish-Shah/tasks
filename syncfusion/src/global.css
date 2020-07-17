@@ -53,3 +53,7 @@ body {
 .titlebar-icon {
   color: red;
 }
+
+.e-menu-item .e-de-save::before {
+  content: '\e279';
+}

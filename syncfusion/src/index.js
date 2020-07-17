@@ -28,3 +28,18 @@ container.documentChange = () => {
   titleBar.updateDocumentTitle();
   container.documentEditor.focusIn();
 };
+
+const menuItems = [
+  {
+    text: 'Save as Template',
+    id: 'save_as_template'
+  }
+];
+
+container.documentEditor.contextMenu.addCustomMenu(menuItems, false);
+
+container.documentEditor.customContextMenuSelect = async (args) => {
+  if (args.id === container.documentEditor.element.id + 'save_as_template') {
+    // Get contents from here
+  }
+};
