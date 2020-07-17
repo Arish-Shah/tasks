@@ -2,7 +2,7 @@ import {
   DocumentEditorContainer,
   Toolbar
 } from '@syncfusion/ej2-documenteditor';
-import { serviceUrl } from './util/styles';
+import { serviceUrl } from './util/constants';
 import { enableRipple } from '@syncfusion/ej2-base';
 import TitleBar from './title-bar';
 

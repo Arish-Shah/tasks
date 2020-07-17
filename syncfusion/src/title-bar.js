@@ -1,13 +1,20 @@
+import { DocumentEditor } from '@syncfusion/ej2-documenteditor';
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownButton } from '@syncfusion/ej2-splitbuttons';
 import { Button } from '@syncfusion/ej2-buttons';
-import { titleStyles, buttonStyles, fetchUrl } from './util/styles';
+import { titleStyles, buttonStyles, fetchUrl } from './util/constants';
 import Placeholder from './util/placeholder';
 
 export default class TitleBar {
+  /**
+   *
+   * @param {HTMLElement} element
+   * @param {DocumentEditor} docEditor
+   */
   constructor(element, docEditor) {
     this.titleBarDiv = element;
     this.documentEditor = docEditor;
+    this.existing = false;
     this.initializeTitleBar();
     this.wireEvents();
   }
@@ -36,6 +43,21 @@ export default class TitleBar {
       'Document Name. Click to Change'
     );
 
+    let items = [
+      { text: 'Microsoft Word (.docx)', id: 'word' },
+      { text: 'Syncfusion Document Text (.sfdt)', id: 'sfdt' }
+    ];
+
+    this.export = this.addButton(
+      '',
+      'Download',
+      buttonStyles,
+      'documenteditor-share',
+      'Download this document.',
+      true,
+      items
+    );
+
     this.placeholder = this.addButton(
       '',
       'Placeholder',
@@ -45,37 +67,60 @@ export default class TitleBar {
       false
     );
 
-    let items = [
-      { text: 'Microsoft Word (.docx)', id: 'word' },
-      { text: 'Syncfusion Document Text (.sfdt)', id: 'sfdt' }
-    ];
-
-    this.export = this.addButton(
-      'e-de-icon-Download e-de-padding-right titlebar-icon',
-      'Download',
+    this.saveBtn = this.addButton(
+      '',
+      'Save',
       buttonStyles,
-      'documenteditor-share',
-      'Download this document.',
-      true,
-      items
+      'documenteditor-save',
+      'Save this Document',
+      false
     );
+
+    this.fetchFiles();
   };
 
-  setTooltipForPopup = () => {
-    document
-      .getElementById('documenteditor-share-popup')
-      .querySelectorAll('li')[0]
-      .setAttribute(
-        'title',
-        'Download a copy of this document to your computer as a DOCX file.'
-      );
-    document
-      .getElementById('documenteditor-share-popup')
-      .querySelectorAll('li')[1]
-      .setAttribute(
-        'title',
-        'Download a copy of this document to your computer as an SFDT file.'
-      );
+  fetchFiles = () => {
+    fetch(getFiles, {
+      method: 'GET'
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        let items = this.getItems(res);
+        this.filesButton = this.addButton(
+          '',
+          'Files',
+          buttonStyles,
+          'documenteditor-files',
+          'Saved Files',
+          true,
+          items
+        );
+      })
+      .catch((error) => console.log(error));
+  };
+
+  getItems = (response) => {
+    /* This function is called to make the response object look similar to .NET api */
+    // const obj = this.firebase(response); // set this to -> const obj = response;
+    const obj = response;
+
+    const items = [];
+    Object.keys(obj).forEach((key, index) => {
+      items.push({
+        text: key,
+        id: index,
+        content: obj[key]
+      });
+    });
+    return items;
+  };
+
+  firebase = (response) => {
+    const ret = {};
+    Object.keys(response).forEach((key) => {
+      ret[response[key].docName] = response[key].contentsfdt;
+    });
+    return ret;
   };
 
   wireEvents = () => {
@@ -99,6 +144,24 @@ export default class TitleBar {
 
     this.documentTitleContentEditor.addEventListener('click', () => {
       this.updateDocumentEditorTitle();
+    });
+
+    this.saveBtn.element.addEventListener('click', () => {
+      const docName = this.documentEditor.documentName;
+      const contentsfdt = this.documentEditor.serialize();
+      fetch(postFiles, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          docName,
+          contentsfdt
+        })
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error));
     });
 
     this.fileUpload.addEventListener('change', (e) => {
@@ -154,11 +217,8 @@ export default class TitleBar {
           select: this.onExportClick,
           items: items,
           iconCss: iconClass,
-          cssClass: 'e-caret-hide',
-          content: btnText,
-          open: () => {
-            this.setTooltipForPopup();
-          }
+          cssClass: '',
+          content: btnText
         },
         button
       );
@@ -177,6 +237,7 @@ export default class TitleBar {
   };
 
   onExportClick = (args) => {
+    console.log(args);
     let value = args.item.id;
     switch (value) {
       case 'word':
@@ -185,7 +246,15 @@ export default class TitleBar {
       case 'sfdt':
         this.save('Sfdt');
         break;
+      default:
+        this.handleFile(args.item.content, args.item.text);
     }
+  };
+
+  handleFile = (content, docName) => {
+    this.existing = true;
+    this.documentEditor.open(content);
+    this.documentEditor.documentName = docName;
   };
 
   save = (format) => {
@@ -197,3 +266,7 @@ export default class TitleBar {
     );
   };
 }
+
+const getFiles = 'http://localhost:50845/api/DocumentEditor/GetDocuments';
+
+const postFiles = 'http://localhost:50845/api/DocumentEditor/SaveDocument';
