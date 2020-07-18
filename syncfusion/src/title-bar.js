@@ -13,7 +13,6 @@ export default class TitleBar {
   constructor(element, docEditor) {
     this.titleBarDiv = element;
     this.documentEditor = docEditor;
-    this.existing = false;
     this.initializeTitleBar();
     this.wireEvents();
   }
@@ -47,14 +46,15 @@ export default class TitleBar {
       { text: 'Syncfusion Document Text (.sfdt)', id: 'sfdt' }
     ];
 
-    this.export = this.addButton(
+    this.download = this.addButton(
       '',
       'Download',
       buttonStyles,
       'documenteditor-share',
       'Download this document.',
       true,
-      items
+      items,
+      this.onExportClick
     );
 
     this.placeholder = this.addButton(
@@ -205,7 +205,16 @@ export default class TitleBar {
     this.documentTitle.textContent = this.documentEditor.documentName;
   };
 
-  addButton(iconClass, btnText, styles, id, tooltipText, isDropDown, items) {
+  addButton(
+    iconClass,
+    btnText,
+    styles,
+    id,
+    tooltipText,
+    isDropDown,
+    items,
+    clickCallback
+  ) {
     let button = createElement('button', { id: id, styles: styles });
     this.titleBarDiv.appendChild(button);
     button.setAttribute('title', tooltipText);
@@ -213,7 +222,7 @@ export default class TitleBar {
     if (isDropDown) {
       let dropButton = new DropDownButton(
         {
-          select: this.onExportClick,
+          select: clickCallback,
           items: items,
           iconCss: iconClass,
           cssClass: '',
@@ -236,7 +245,6 @@ export default class TitleBar {
   };
 
   onExportClick = (args) => {
-    console.log(args);
     let value = args.item.id;
     switch (value) {
       case 'word':
@@ -245,15 +253,15 @@ export default class TitleBar {
       case 'sfdt':
         this.save('Sfdt');
         break;
-      default:
-        this.handleFile(args.item.content, args.item.text);
     }
   };
 
-  handleFile = (content, docName) => {
-    this.existing = true;
+  onFileClick = (args) => {
+    const content = args.item.content;
+    const docName = args.item.text;
     this.documentEditor.open(content);
     this.documentEditor.documentName = docName;
+    this.updateDocumentTitle();
   };
 
   save = (format) => {
