@@ -87,9 +87,10 @@ export default class Templates {
     }
 
     const html = selection.htmlWriter.writeHtml(documentContent);
-    const sanitizedHtml = `<html><head></head><body>${html}</body></html>`;
+    let fullHtml = `<html><head></head><body>${html}</body></html>`;
+    fullHtml = fullHtml.replace('</img>', '');
 
-    const content = prettier.format(sanitizedHtml, {
+    const content = prettier.format(fullHtml, {
       plugins: [htmlParser],
       parser: 'html'
     });
