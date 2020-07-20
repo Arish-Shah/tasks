@@ -216,7 +216,15 @@ export default class TitleBar {
     clickCallback
   ) {
     let button = createElement('button', { id: id, styles: styles });
-    this.titleBarDiv.appendChild(button);
+
+    let isExisting = this.titleBarDiv.querySelector(`#${id}`);
+
+    if (isExisting) {
+      isExisting.replaceWith(button);
+    } else {
+      this.titleBarDiv.appendChild(button);
+    }
+
     button.setAttribute('title', tooltipText);
 
     if (isDropDown) {

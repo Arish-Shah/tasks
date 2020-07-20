@@ -48,47 +48,5 @@ container.documentEditor.customContextMenuSelect = async (args) => {
   if (args.id === container.documentEditor.element.id + 'save_as_template') {
     const selection = container.documentEditor.selection;
     templates.add(selection);
-
-    let start = selection.start;
-    let end = selection.end;
-    if (!selection.isForward) {
-      start = selection.end;
-      end = selection.start;
-    }
-
-    const documentContent = selection.owner.sfdtExportModule.write(
-      start.currentWidget,
-      start.offset,
-      end.currentWidget,
-      end.offset,
-      true
-    );
-    if (selection.owner.editorModule) {
-      selection.owner.editorModule.copiedData = JSON.stringify(documentContent);
-    }
-
-    const html = selection.htmlWriter.writeHtml(documentContent);
-    const content = `
-      <html>
-        <head></head>
-        <body>${html}</body>
-      </html>
-    `;
-
-    let response = await fetch(
-      'https://ej2services.syncfusion.com/production/web-services/api/documenteditor/SystemClipboard',
-      {
-        method: 'POST',
-        body: JSON.stringify({ content, type: '.html' }),
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-      }
-    );
-
-    response = await response.json();
-    await container.documentEditor.editor.pasteContents(response);
-
-    // This method is pasting at the same place so it is not visible, but its working
   }
 };
